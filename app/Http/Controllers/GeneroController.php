@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genero;
 use Illuminate\Http\Request;
 
 class GeneroController extends Controller
 {
     public function index()
     {
-        return view('generos/index');
+        $generos = Genero::all();
+
+        return view('generos/index', compact('generos'));
     }
     public function show($id)
     {
-        return view('generos/show', compact('id'));
+        $genero = Genero::findOrFail($id);
+
+        return view('generos/show', compact('genero'));
     }
 
     public function create()

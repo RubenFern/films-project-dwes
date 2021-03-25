@@ -13,8 +13,27 @@ class PeliculaAlquiladaController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+    * Sólo creo los métodos para visualizar las películas alquiladas. Para añadirla y 
+    * para borrarla
+    */ 
+
     public function index()
     {
         return view('peliculas-alquiladas/index');
+    }
+    
+    public function create()
+    {
+        return view('peliculas-alquiladas/create');
+    }
+    public function store($id)
+    {
+        //
+    }
+
+    public function destroy($id)
+    {
+        //
     }
 }

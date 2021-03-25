@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PeliculaAlquilada;
 use Illuminate\Http\Request;
 
 class PeliculaAlquiladaController extends Controller
@@ -17,12 +18,13 @@ class PeliculaAlquiladaController extends Controller
     * Sólo creo los métodos para visualizar las películas alquiladas. Para añadirla y 
     * para borrarla
     */ 
-
     public function index()
     {
-        return view('peliculas-alquiladas/index');
+        $peliculasAlquiladas = PeliculaAlquilada::all();
+
+        return view('peliculas-alquiladas/index', compact('peliculasAlquiladas'));
     }
-    
+
     public function create()
     {
         return view('peliculas-alquiladas/create');
@@ -32,9 +34,14 @@ class PeliculaAlquiladaController extends Controller
         //
     }
 
-    // Cambiar booleano de la devolución (NO BORRAR REGISTRO)
-    public function destroy($id)
+    // Proceso para devolver la película
+    public function edit($id)
     {
-        //
+        // Muestro un formulario de confirmación (Controlar que el usuario la tenga alquilada)
+        return view('peliculas-alquiladas/edit', compact('id'));
+    }
+    public function update($id)
+    {
+        // Cambio el valor del booleano devuelto a true
     }
 }

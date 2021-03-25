@@ -32,6 +32,7 @@ class PeliculaAlquiladaController extends Controller
         //
     }
 
+    // Cambiar booleano de la devolución (NO BORRAR REGISTRO)
     public function destroy($id)
     {
         //

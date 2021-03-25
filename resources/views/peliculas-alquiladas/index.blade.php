@@ -7,6 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>El usuario visualiza las peliculas alquiladas</h2>
+
+    @if ($peliculasAlquiladas)
+        <h2>No tienes ninguna película alquilada</h2>
+
+        <p><a href="peliculas">Echa un vistazo a nuestras películas</a></p>
+    @else
+        <h2>El usuario visualiza las peliculas alquiladas</h2>
+    @endif
+
 </body>
 </html>

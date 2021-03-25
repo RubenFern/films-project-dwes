@@ -70,4 +70,5 @@ Route::get('peliculas-alquiladas', [PeliculaAlquiladaController::class, 'index']
 Route::get('peliculas-alquiladas/añadir', [PeliculaAlquiladaController::class, 'create'])->name('peliculas-alquiladas.create');
 Route::post('peliculas-alquiladas', [PeliculaAlquiladaController::class, 'store'])->name('peliculas-alquiladas.store');
 
-Route::delete('peliculas-alquiladas/{pelicula-alquilada}', [PeliculaAlquiladaController::class, 'destroy'])->name('peliculas-alquiladas.destroy');
+Route::get('peliculas-alquiladas/{pelicula_alquilada}/devolver', [PeliculaAlquiladaController::class, 'edit'])->name('peliculas-alquiladas.edit');
+Route::match(['put', 'patch'], 'peliculas_alquiladas/{pelicula-alquilada}', [PeliculaAlquiladaController::class, 'update'])->name('peliculas-alquiladas.update');

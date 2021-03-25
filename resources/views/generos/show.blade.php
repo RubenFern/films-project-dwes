@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Visualizo el genero con el id <?php echo $id; ?></h2>
+    <h2>Visualizo el genero con el id <?php echo $genero->id; ?></h2>
+
+    <table border="1">
+        <tr>
+            <th>Género</th>
+        </tr>
+        <tr>
+            <td>{{ $genero->genero }}</td> 
+        </tr>
+    </table>
 </body>
 </html>

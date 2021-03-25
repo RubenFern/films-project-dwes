@@ -66,3 +66,8 @@ Route::delete('generos/{genero}', [GeneroController::class, 'destroy'])->name('g
 |--------------------------------------------------------------------------
 */
 Route::get('peliculas-alquiladas', [PeliculaAlquiladaController::class, 'index'])->name('peliculas-alquiladas.index');
+
+Route::get('peliculas-alquiladas/añadir', [PeliculaAlquiladaController::class, 'create'])->name('peliculas-alquiladas.create');
+Route::post('peliculas-alquiladas', [PeliculaAlquiladaController::class, 'store'])->name('peliculas-alquiladas.store');
+
+Route::delete('peliculas-alquiladas/{pelicula-alquilada}', [PeliculaAlquiladaController::class, 'destroy'])->name('peliculas-alquiladas.destroy');

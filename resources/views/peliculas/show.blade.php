@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+
     <h2>Información de la película <?php echo $pelicula->id; ?></h2>
 
     <table border="1">
@@ -19,7 +14,15 @@
             <td>{{ $pelicula->director }}</td> 
             <td>{{ $pelicula->año }}</td> 
             <td><img width="50" src="{{ $pelicula->imagen }}" ></td>
+            <td>
+                <form method='POST' action="{{ route('peliculas.destroy', ['pelicula' => $pelicula->id])}}">
+                    @csrf
+                    @method('DELETE')
+
+                    <input type="submit" value="Eliminar película">
+                </form>
+            </td>
         </tr>
     </table>
-</body>
-</html>
+    
+@endsection

@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Form para añadir un genero</h2>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+
+    <h1>Añade un género para las películas</h1>
+
+    <form method="POST" action="{{ route('generos.store') }}">
+        @csrf
+
+        <br>
+        <label for="genero">Nombre del género</label>
+        <input type="text" name="genero" required>
+
+        <br><br>
+
+        <input type="submit" name="añadir" value="Añade el género">
+    </form>
+        
+@endsection

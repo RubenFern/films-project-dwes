@@ -42,22 +42,27 @@ class PeliculaAlquiladaController extends Controller
         /**
          * Saco un error flash de sesión si el usuario quiere alquilar una película
          * que ya tenga alquilada
-         */  
+         */
         $comprobarAlquiler = PeliculaAlquilada::where('id_pelicula', $idPelicula)->where('devuelta', false)->count();
 
         if ($comprobarAlquiler > 0)
         {
-            session()->flash('ya_alquilada', 'Ya tienes alquilada esta película');
-
-            return redirect()->back();
+            return redirect()->back()
+                    ->withInput(request()->all())
+                    ->withErrors('Ya tienes alquilada esta película');
         } else {
+            /**
+             * Si no está alquilada la inserto en la BD y creo un mensaje de éxito
+             */
             PeliculaAlquilada::create([
                 'id_pelicula' => $idPelicula,
-                'id_user' => 1,
+                'id_user' => 1, // QUITAR EL ID POR DEFECTO DE 1
                 'devuelta' => false
             ]);
 
-            return redirect()->route('peliculas-alquiladas.index');
+            return redirect()
+                    ->route('peliculas-alquiladas.create', ['pelicula' => $idPelicula])
+                    ->withSuccess('Has alquilado con éxito la película');
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pelicula;
 use App\Models\PeliculaAlquilada;
 use Illuminate\Http\Request;
 
@@ -25,13 +26,39 @@ class PeliculaAlquiladaController extends Controller
         return view('peliculas-alquiladas.index', compact('peliculasAlquiladas'));
     }
 
-    public function create()
+    public function create($id)
     {
-        return view('peliculas-alquiladas.create');
+        /**
+         * Si existe el id de la película que se quiere alquilar se llama al método store
+         * desde el formulario de confirmación de la vista create. Store se encarga de 
+         * insertar la película alquilada en la base de datos
+         */
+        $idPelicula = Pelicula::findOrFail($id);
+
+        return view('peliculas-alquiladas.create', compact('idPelicula'));
     }
-    public function store($id)
+    public function store($idPelicula)
     {
-        //
+        /**
+         * Saco un error flash de sesión si el usuario quiere alquilar una película
+         * que ya tenga alquilada
+         */  
+        $comprobarAlquiler = PeliculaAlquilada::where('id_pelicula', $idPelicula)->where('devuelta', false)->count();
+
+        if ($comprobarAlquiler > 0)
+        {
+            session()->flash('ya_alquilada', 'Ya tienes alquilada esta película');
+
+            return redirect()->back();
+        } else {
+            PeliculaAlquilada::create([
+                'id_pelicula' => $idPelicula,
+                'id_user' => 1,
+                'devuelta' => false
+            ]);
+
+            return redirect()->route('peliculas-alquiladas.index');
+        }
     }
 
     // Proceso para devolver la película

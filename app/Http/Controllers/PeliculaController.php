@@ -36,6 +36,20 @@ class PeliculaController extends Controller
     // método para guardar los datos en la base de datos
     public function store()
     {
+        // Valido los datos
+        $rules = [
+            "id_genero" => "required",
+            "titulo" => "required|unique:peliculas",
+            "director" => "required",
+            "año" => "required",
+            "precio" => "required|min:2|max:30",
+            "sinopsis" => "required",
+            "cantidad" => "required|min:1",
+            "imagen" => "required"
+        ];
+
+        request()->validate($rules);
+
         Pelicula::create(request()->all()); 
     }
 
@@ -51,6 +65,20 @@ class PeliculaController extends Controller
     // actualizar los datos en la base de datos
     public function update($id)
     {
+        // Valido los datos
+        $rules = [
+            "id_genero" => "required",
+            "titulo" => "required|unique:peliculas",
+            "director" => "required",
+            "año" => "required",
+            "precio" => "required|min:2|max:30",
+            "sinopsis" => "required",
+            "cantidad" => "required|min:1",
+            "imagen" => "required"
+        ];
+
+        request()->validate($rules);
+
         $pelicula = Pelicula::findOrFail($id);
 
         $pelicula->update(request()->all());

@@ -41,6 +41,7 @@
                             {{ csrf_field() }}
                         </form>
                     @endguest
+                    <a class="no-underline hover:underline" href="{{ URL::previous() }}">Atrás</a>
                 </nav>
             </div>
         </header>

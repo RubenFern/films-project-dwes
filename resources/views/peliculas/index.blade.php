@@ -21,5 +21,5 @@
                 <td><img width="50" src="{{ $pelicula->imagen }}" ></td>
             </tr>
         @endforeach
-
+    </table>
 @endsection

@@ -27,6 +27,7 @@ class PeliculaController extends Controller
     // Retono la vista del formulario para añadir una película
     public function create()
     {
+        // Llamo a todos los generos para listarlos en el select
         $generos = Genero::all();
 
         return view('peliculas.create', compact('generos')); 
@@ -35,7 +36,7 @@ class PeliculaController extends Controller
     // método para guardar los datos en la base de datos
     public function store()
     {
-        Pelicula::create(request()->all());
+        Pelicula::create(request()->all()); 
     }
 
     // Muestro el formulario para editar una película en específico

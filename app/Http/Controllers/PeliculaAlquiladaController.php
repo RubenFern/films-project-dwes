@@ -22,12 +22,12 @@ class PeliculaAlquiladaController extends Controller
     {
         $peliculasAlquiladas = PeliculaAlquilada::all();
 
-        return view('peliculas-alquiladas/index', compact('peliculasAlquiladas'));
+        return view('peliculas-alquiladas.index', compact('peliculasAlquiladas'));
     }
 
     public function create()
     {
-        return view('peliculas-alquiladas/create');
+        return view('peliculas-alquiladas.create');
     }
     public function store($id)
     {
@@ -38,7 +38,7 @@ class PeliculaAlquiladaController extends Controller
     public function edit($id)
     {
         // Muestro un formulario de confirmación (Controlar que el usuario la tenga alquilada)
-        return view('peliculas-alquiladas/edit', compact('id'));
+        return view('peliculas-alquiladas.edit', compact('id'));
     }
     public function update($id)
     {

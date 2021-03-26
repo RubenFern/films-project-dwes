@@ -19,6 +19,10 @@
         @if (session()->has('ya_alquilada'))
             <p>{{ session()->get('ya_alquilada') }}</p>
         @endif
+
+        @if (session()->has('alquilada'))
+            <p>{{ session()->get('alquilada') }}</p>            
+        @endif
     </form>
 
 @endsection

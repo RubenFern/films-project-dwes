@@ -1,12 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Form para el editar el genero con id <?php echo $id ?></h2>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+
+    <h1>Edita el nombre de un género</h1>
+
+    <form method="POST" action="{{ route('generos.update', ['genero' => $genero->id]) }}">
+        @csrf
+        @method('PUT')
+
+        <br>
+        <label for="genero">Nombre del género</label>
+        <input type="text" name="genero" value="{{ $genero->genero }}" required>
+
+        <br><br>
+
+        <input type="submit" name="editar" value="Editar género">
+
+    </form>
+
+@endsection

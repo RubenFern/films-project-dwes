@@ -56,6 +56,10 @@
                             </li>
 
                             <li>
+                                <a href="{{ route('generos.create') }}" class="flex items-center hover:underline">{{ __('Añadir género') }} <img class="ml-2 items-center" src="/images/add.svg" alt="add.svg"></a>
+                            </li>
+
+                            <li>
                                 <a href="{{ route('peliculas.index') }}" class="hover:underline">{{ __('Películas') }}</a>
                             </li>
 
@@ -97,13 +101,18 @@
 
         {{-- Control de errores y sucesos --}}
         @if (session()->has('success'))
-            <p>{{ session()->get('success') }}</p>            
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <p class="font-semibold">{{ session()->get('success') }}</p>            
+            </div>
         @endif
 
         @if (isset($errors) && $errors->any())
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                @foreach ($errors->all() as $error)
+                    <p class="font-semibold mb-1">{{ $error }}</p>
+                @endforeach
+            </div>
+            
         @endif
         {{-- Fin del control de errores y sucesos --}}
 

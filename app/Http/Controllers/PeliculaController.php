@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PeliculaRequest;
 use App\Models\Genero;
 use App\Models\Pelicula;
 use Illuminate\Http\Request;
@@ -14,23 +15,18 @@ class PeliculaController extends Controller
         //$this->middleware('admin')->except('index');
     }
 
-    // Muestro todas las películas de la base de datos
     public function index()
     {
         $peliculas = Pelicula::all();
 
         return view('peliculas.index', compact('peliculas'));
     }
-    // Muestro sólo la película que coincida con el id solicitado
-    public function show($id)
-    {
-        // Con findOrFail si no existe el id visualiza un error 404 
-        $pelicula = Pelicula::findOrFail($id);
 
+    public function show(Pelicula $pelicula)
+    {
         return view('peliculas.show', compact('pelicula'));
     }
 
-    // Retono la vista del formulario para añadir una película
     public function create()
     {
         // Llamo a todos los generos para listarlos en el select
@@ -38,67 +34,43 @@ class PeliculaController extends Controller
 
         return view('peliculas.create', compact('generos')); 
     }
-    // La acción del formulario de añadir película redirige a este 
-    // método para guardar los datos en la base de datos
-    public function store()
+
+    public function store(PeliculaRequest $request)
     {
-        // Valido los datos
-        $rules = [
-            "id_genero" => "required",
-            "titulo" => "required|unique:peliculas",
-            "director" => "required",
-            "año" => "required",
-            "precio" => "required|min:2|max:30",
-            "sinopsis" => "required",
-            "cantidad" => "required|min:1",
-            "imagen" => "required"
-        ];
+        // El request me tiene solo los datos que han sido validados del formulario
+        Pelicula::create($request->validated()); 
 
-        request()->validate($rules);
-
-        Pelicula::create(request()->all()); 
+        // Retorno la vista de todas las películas y un mensaje
+        return redirect()
+                    ->route('peliculas.index')
+                    ->withSuccess('Se ha añadido la película correctamente');
     }
 
-    // Muestro el formulario para editar una película en específico
-    public function edit($id)
+    public function edit(Pelicula $pelicula)
     {
-        $pelicula = Pelicula::findOrFail($id);
         $generos = Genero::all();
 
         return view('peliculas.edit', compact('pelicula', 'generos'));
     }
-    // La acción del formulario de editar me redirige a este método para 
-    // actualizar los datos en la base de datos
-    public function update($id)
+
+    public function update(PeliculaRequest $request, Pelicula $pelicula)
     {
-        // Valido los datos
-        $rules = [
-            "id_genero" => "required",
-            "titulo" => "required|unique:peliculas",
-            "director" => "required",
-            "año" => "required",
-            "precio" => "required|min:2|max:30",
-            "sinopsis" => "required",
-            "cantidad" => "required|min:1",
-            "imagen" => "required"
-        ];
+        // Actualizo los datos de la película en específico
+        $pelicula->update($request->validated());
 
-        request()->validate($rules);
-
-        $pelicula = Pelicula::findOrFail($id);
-
-        $pelicula->update(request()->all());
+        return redirect()
+                    ->route('peliculas.show', ['pelicula' => $pelicula->id])
+                    ->withSuccess('Se han actualizado los datos de la película: ' . $pelicula->titulo);
     }
 
     // Elimino la película con el id marcado
-    public function destroy($id)
+    public function destroy(Pelicula $pelicula)
     {
-        /**
-         * Al volver a buscar la película con el id me aseguro que si el admin recarga la página 
-         * para borrar 2 veces la misma película le de un error 404 porque no la encontraría
-         */
-        $pelicula = Pelicula::findOrFail($id);
-
         $pelicula->delete();
+
+        // Retorno la vista de todas las películas y un mensaje
+        return redirect()
+                    ->route('peliculas.index')
+                    ->withSuccess('Se ha eliminado la película: ' . $pelicula->titulo);
     }
 }

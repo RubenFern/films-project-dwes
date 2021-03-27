@@ -21,7 +21,7 @@
                     @csrf
                     @method('DELETE')
 
-                    <input type="submit" value="Eliminar película">
+                    <input class="text-black p-2" type="submit" value="Eliminar película">
                 </form>
             </td>
             <td>

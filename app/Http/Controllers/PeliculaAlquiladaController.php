@@ -26,24 +26,27 @@ class PeliculaAlquiladaController extends Controller
         return view('peliculas-alquiladas.index', compact('peliculasAlquiladas'));
     }
 
-    public function create($id)
+    public function create($PeliculaAlquilada)
     {
         /**
          * Si existe el id de la película que se quiere alquilar se llama al método store
          * desde el formulario de confirmación de la vista create. Store se encarga de 
          * insertar la película alquilada en la base de datos
          */
-        $idPelicula = Pelicula::findOrFail($id);
 
-        return view('peliculas-alquiladas.create', compact('idPelicula'));
+        // Si no existe la película por el id manda un error 404
+        $PeliculaAlquilada = Pelicula::findOrFail($PeliculaAlquilada); 
+
+        return view('peliculas-alquiladas.create', compact('PeliculaAlquilada'));
     }
-    public function store($idPelicula)
+
+    public function store($PeliculaAlquilada)
     {
         /**
          * Saco un error flash de sesión si el usuario quiere alquilar una película
          * que ya tenga alquilada
          */
-        $comprobarAlquiler = PeliculaAlquilada::where('id_pelicula', $idPelicula)->where('devuelta', false)->count();
+        $comprobarAlquiler = PeliculaAlquilada::where('id_pelicula', $PeliculaAlquilada)->where('devuelta', false)->count();
 
         if ($comprobarAlquiler > 0)
         {
@@ -54,25 +57,28 @@ class PeliculaAlquiladaController extends Controller
             /**
              * Si no está alquilada la inserto en la BD y creo un mensaje de éxito
              */
+            $PeliculaAlquilada = Pelicula::findOrFail($PeliculaAlquilada); 
+
             PeliculaAlquilada::create([
-                'id_pelicula' => $idPelicula,
+                'id_pelicula' => $PeliculaAlquilada->id,
                 'id_user' => 1, // QUITAR EL ID POR DEFECTO DE 1
                 'devuelta' => false
             ]);
 
             return redirect()
-                    ->route('peliculas-alquiladas.create', ['pelicula' => $idPelicula])
+                    ->route('peliculas-alquiladas.create', ['pelicula' => $PeliculaAlquilada])
                     ->withSuccess('Has alquilado con éxito la película');
         }
     }
 
     // Proceso para devolver la película
-    public function edit($id)
+    public function edit(PeliculaAlquilada $PeliculaAlquilada)
     {
         // Muestro un formulario de confirmación (Controlar que el usuario la tenga alquilada)
-        return view('peliculas-alquiladas.edit', compact('id'));
+        return view('peliculas-alquiladas.edit', compact('PeliculaAlquilada'));
     }
-    public function update($id)
+
+    public function update(PeliculaAlquilada $PeliculaAlquilada)
     {
         // Cambio el valor del booleano devuelto a true
     }

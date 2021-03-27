@@ -10,50 +10,51 @@
         <br>
 
         <label for="titulo">Título: </label>
-        <input type="text" name="titulo" value="{{ old('titulo') }}" required>
+        <input class="text-black" type="text" name="titulo" value="{{ old('titulo') }}">
 
         <br><br>
 
         <label for="genero">Género: </label>
-        <select name="id_genero" >
+        <select class="text-black" name="id_genero" >
             @foreach ($generos as $genero)
-                <option value="{{ $genero->id }}" {{ old('id_genero') == $genero->id ? 'selected' : '' }} required>{{ $genero->genero }}</option>
+                <option value="{{ $genero->id }}" {{ old('id_genero') == $genero->id ? 'selected' : '' }}>{{ $genero->genero }}</option>
             @endforeach
         </select>
 
         <br><br>
 
         <label for="sinopsis">Sinopsis: </label><br>
-        <textarea name="sinopsis" cols="30" rows="10" required>{{ old('sinopsis') }}</textarea>
+        <textarea class="text-black" name="sinopsis" cols="30" rows="10">{{ old('sinopsis') }}</textarea>
 
         <br><br>
 
         <label for="director">Director: </label>
-        <input type="text" name="director" value="{{ old('director') }}" required>
+        <input class="text-black" type="text" name="director" value="{{ old('director') }}">
 
         <br><br>
 
         <label for="cantidad">Cantidad</label>
-        <input type="number" name="cantidad" min="1" value="{{ old('cantidad') }}" required>
+        <input class="text-black" type="number" name="cantidad" value="{{ old('cantidad') }}">
 
         <br><br>
 
         <label for="precio">Precio: </label>
-        <input type="number" name="precio" min="2.99" step="0.01" max="29.99" value="{{ old('precio') }}" required>
+        <input class="text-black" type="number" name="precio" step="0.01" value="{{ old('precio') }}">
+        <p class="text-sm text-gray-500">EL precio de estar entre 2.99€ y 49.99€</p>
 
         <br><br>
 
         <label for="año">Año: </label>
-        <input type="text" name="año" pattern="^(19|20)\d{2}$" value="{{ old('año') }}" required>
+        <input class="text-black" type="text" name="año" value="{{ old('año') }}">
 
         <br><br>
 
         <label for="imagen">Imagen: </label>
-        <input type="file" name="imagen">
+        <input class="text-black" type="file" name="imagen">
 
         <br><br>
 
-        <input type="submit" name="añadir" value="Añadir película">
+        <input class="text-black" type="submit" name="añadir" value="Añadir película">
     </form>
 
 @endsection

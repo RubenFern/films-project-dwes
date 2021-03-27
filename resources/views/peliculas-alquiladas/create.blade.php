@@ -4,7 +4,7 @@
 
     <h2>Quieres alquilar esta película??</h2>
     
-    <form method="POST" action="{{ route('peliculas-alquiladas.store', ['pelicula' => $idPelicula]) }}">
+    <form method="POST" action="{{ route('peliculas-alquiladas.store', ['pelicula' => $PeliculaAlquilada]) }}">
         @csrf
 
         <br>

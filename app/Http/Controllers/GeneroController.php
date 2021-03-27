@@ -13,10 +13,9 @@ class GeneroController extends Controller
 
         return view('generos.index', compact('generos'));
     }
-    public function show($id)
-    {
-        $genero = Genero::findOrFail($id);
 
+    public function show(Genero $genero)
+    {
         return view('generos.show', compact('genero'));
     }
 
@@ -24,6 +23,7 @@ class GeneroController extends Controller
     {
         return view('generos.create');
     }
+
     public function store()
     {
         /**
@@ -33,23 +33,18 @@ class GeneroController extends Controller
         Genero::create(request()->all());
     }
 
-    public function edit($id)
+    public function edit(Genero $genero)
     {
-        $genero = Genero::findOrFail($id);
-
         return view('generos.edit', compact('genero'));
     }
-    public function update($id)
-    {
-        $genero = Genero::findOrFail($id);
 
+    public function update(Genero $genero)
+    {
         $genero->update(request()->all());
     }
 
-    public function destroy($id)
-    {
-        $genero = Genero::findOrFail($id);
-        
+    public function destroy(Genero $genero)
+    {        
         $genero->delete();
     }
 }

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class PeliculaController extends Controller
 {
+    public function __construct()
+    {
+        // Todos los métodos excpeto index
+        //$this->middleware('admin')->except('index');
+    }
+
     // Muestro todas las películas de la base de datos
     public function index()
     {

@@ -14,6 +14,15 @@ class GeneroSeeder extends Seeder
      */
     public function run()
     {
-        Genero::factory()->times(10)->create();
+        $generos = ['Accion', 'Comedia', 'Suspense', 'Drama', 'Crimen', 'Romance', 'Aventura', 'Terror', 'Musical', 'Ciencia Ficción'];
+
+        foreach ($generos as $genero)
+        {
+            Genero::create([
+                'genero' => $genero
+            ]);
+        }
+
+        // Genero::factory()->times(10)->create();
     }
 }

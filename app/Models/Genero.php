@@ -19,7 +19,7 @@ class Genero extends Model
     ];
 
     // Un género puede tener varias películas
-    public function pelicula()
+    public function peliculas()
     {   
         return $this->hasMany(Pelicula::class);
     }

@@ -28,7 +28,9 @@ class Pelicula extends Model
     // Una película pertenece a un género
     public function genero()
     {
-        return $this->belongsTo(Genero::class);
+        // Asigno el nombre que le puse a la clave foránea y 
+        // ya puedo acceder al género de la película en específico
+        return $this->belongsTo(Genero::class, 'id_genero');
     }
 
     // Una película puede tener varias películas alquiladas

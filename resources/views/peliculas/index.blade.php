@@ -14,7 +14,7 @@
                         <div>
                             <h2 class="text-teal-100 text-xl p-4 pl-10">{{ $pelicula->titulo }}</h2>
                             <h4 class="text-gray-600 pl-10">Año: <span class="text-white">{{ $pelicula->año }}</span></h4>
-                            <h4 class="text-gray-600 pl-10">Género: <span class="text-white"></span></h4>
+                            <h4 class="text-gray-600 pl-10">Género: <span class="text-white">{{ $pelicula->genero->genero }}</span></h4>
                         </div>         
                         
                         <div class="pl-4 mb-7 m-auto">

@@ -24,6 +24,9 @@ class CreatePeliculasTable extends Migration
             $table->integer('cantidad')->unsigned();
             $table->string('imagen')->default('not_found.png'); // Imagen por defecto en caso de no tenerla
             $table->timestamps();
+
+            // Clave foránea
+            $table->foreign('id_genero')->references('id')->on('generos');
         });
     }
 

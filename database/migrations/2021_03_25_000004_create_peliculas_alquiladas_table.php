@@ -17,8 +17,18 @@ class CreatePeliculasAlquiladasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pelicula');
             $table->unsignedBigInteger('id_user');
-            $table->boolean('devuelta');
+            $table->boolean('devuelta')->default(0);
+            $table->timestamp('fecha_alquiler')->nullable();
+            $table->timestamp('fecha_devolucion')->nullable();
             $table->timestamps();
+
+            /**
+             * Cuando el administrador borre el usuario, quiero que se borren también sus
+             * películas alquiladas. Pero si el administrador elimina una película, no
+             * me interesa eliminar su registro en la tabla de las películas alquiladas.
+             */
+            //$table->foreign('id_pelicula')->references('id')->on('peliculas');
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 

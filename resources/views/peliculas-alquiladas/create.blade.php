@@ -2,27 +2,24 @@
 
 @section('content')
 
-    <h2>Quieres alquilar esta película??</h2>
+    <section class="w-4/6 m-auto">
+        <h2 class="text-teal-500 text-3xl font-semibold">¿Quieres alquilar la pleícula de <span class="text-teal-200">{{ $PeliculaAlquilada->titulo }}</span></h2>
+        
+        <form method="POST" action="{{ route('peliculas-alquiladas.store', ['pelicula' => $PeliculaAlquilada]) }}">
+            @csrf
+
+            <br>
+
+            <div class="flex justify-center mt-20">
+                <button class="mr-5 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-6 rounded-lg" type="submit" name="añadir">
+                    Sí
+                </button>
+
+                <a class="mr-5 bg-teal-600 hover:bg-teal-700 text-white font-bold py-1.5 px-6 rounded-lg" href="{{ URL::previous() }}">No</a>  
+            </div>
+               
+        </form>
+    </section>
     
-    <form method="POST" action="{{ route('peliculas-alquiladas.store', ['pelicula' => $PeliculaAlquilada]) }}">
-        @csrf
-
-        <br>
-
-        <input type="submit" name="añadir" value="Sí">
-        <a href="{{ URL::previous() }}">No</a>
-
-        {{-- 
-        Muestro un mensaje en caso de alquilar una película y que el usuario ya la tenga alquilada. 
-        El error es flash, por lo que al recargar la página se elimina el error.
-        --}}
-        @if (session()->has('ya_alquilada'))
-            <p>{{ session()->get('ya_alquilada') }}</p>
-        @endif
-
-        @if (session()->has('alquilada'))
-            <p>{{ session()->get('alquilada') }}</p>            
-        @endif
-    </form>
 
 @endsection

@@ -10,18 +10,18 @@
             </div>
         @endif
 
-        <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
-
-            <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                Dashboard
-            </header>
-
-            <div class="w-full p-6">
-                <p class="text-gray-700">
-                    You are logged in!
-                </p>
+        <section class="w-2/3 m-auto">
+            <h2 class="text-xl text-center">Sugerencias</h2>
+            <div class="flex items-start w-full p-6">
+                @foreach ($sugerenciaDePeliculas as $pelicula)
+                    <div class="m-auto">
+                        <a href="{{ route('peliculas.show', ['pelicula' => $pelicula->id]) }}"><img class="m-auto img_sugerencia" src="{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}"></a>
+                        <a href="{{ route('peliculas.show', ['pelicula' => $pelicula->id]) }}"><p class="text-center mt-4">{{ $pelicula->titulo }}</p></a>
+                    </div>
+                @endforeach
             </div>
         </section>
+        
     </div>
 </main>
 @endsection

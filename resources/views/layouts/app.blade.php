@@ -22,22 +22,32 @@
     <div id="app">
         <header class="bg-header py-6">
             <div class="container mx-auto flex justify-between items-center px-6">
-                <div>
+                <div class="flex items-center">
                     {{-- 
                         La pagina principal será la de welcome solo para usuarios no registrados.
                         Para los registrados la página principal es 'home' 
                     --}}
                     @guest
-                        <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline flex items-center">
+                        <a href="{{ url('/') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
                             <img class="w-9 mr-3" src="/images/logo.svg" alt="logo.svg">
                             {{ config('app.name', 'FilmsProject-DWES') }}
                         </a>
                     @else
-                        <a href="{{ url('/home') }}" class="text-lg font-semibold text-gray-100 no-underline flex items-center">
+                        <a href="{{ url('/home') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
                             <img class="w-9 mr-3" src="/images/logo.svg" alt="logo.svg">
                             {{ config('app.name', 'FilmsProject-DWES') }}
                         </a>
                     @endguest
+                    
+                    <ul class="ml-5 space-x-4 flex">
+                        <li>
+                            <a href="{{ route('peliculas.create') }}" class="flex items-center hover:underline">{{ __('Añadir película') }} <img class="ml-2 items-center" src="/images/add.svg" alt="add.svg"></a>
+                        </li>
+    
+                        <li>
+                            <a href="{{ route('generos.create') }}" class="flex items-center hover:underline">{{ __('Añadir género') }} <img class="ml-2 items-center" src="/images/add.svg" alt="add.svg"></a>
+                        </li>
+                    </ul>
                 </div>
                 <nav class="text-gray-300 text-sm sm:text-base">
                     <ul class="space-x-8 flex">
@@ -51,14 +61,6 @@
                                 </li>
                             @endif
                         @else
-                            <li>
-                                <a href="{{ route('peliculas.create') }}" class="flex items-center hover:underline">{{ __('Añadir película') }} <img class="ml-2 items-center" src="/images/add.svg" alt="add.svg"></a>
-                            </li>
-
-                            <li>
-                                <a href="{{ route('generos.create') }}" class="flex items-center hover:underline">{{ __('Añadir género') }} <img class="ml-2 items-center" src="/images/add.svg" alt="add.svg"></a>
-                            </li>
-
                             <li>
                                 <a href="{{ route('peliculas.index') }}" class="hover:underline">{{ __('Películas') }}</a>
                             </li>
@@ -91,23 +93,25 @@
             </div>
         </header>
 
-        <div class="inline-block m-6 mr-24 flex justify-end">
-            <a class="focus:outline-none text-gray-300 text-md font-semibold py-2.5 px-5 rounded-md bg-gray-500 hover:bg-gray-600 hover:shadow-lg flex items-center" href="{{ URL::previous() }}">
-                <img class="mr-2" src="/images/back.svg" alt="back.svg">
-                {{ __('Atrás') }}
-            </a>
-        </div>
+        @if (!Request::is('home') && !Request::is('/'))
+            <div class="inline-block m-6 mr-24 flex justify-end">
+                <a class="focus:outline-none text-gray-300 text-md font-semibold py-2.5 px-5 rounded-md bg-gray-500 hover:bg-gray-600 hover:shadow-lg flex items-center" href="{{ URL::previous() }}">
+                    <img class="mr-2" src="/images/back.svg" alt="back.svg">
+                    {{ __('Atrás') }}
+                </a>
+            </div>    
+        @endif
         
 
         {{-- Control de errores y sucesos --}}
         @if (session()->has('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-1/2 m-5" role="alert">
                 <p class="font-semibold">{{ session()->get('success') }}</p>            
             </div>
         @endif
 
         @if (isset($errors) && $errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-1/2 m-5" role="alert">
                 @foreach ($errors->all() as $error)
                     <p class="font-semibold mb-1">{{ $error }}</p>
                 @endforeach

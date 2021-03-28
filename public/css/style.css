@@ -21,3 +21,11 @@
 .desplegable {
     display: none;
 }
+
+img {
+    width: 23%;
+}
+
+.img_sugerencia {
+    width: 80%;
+}

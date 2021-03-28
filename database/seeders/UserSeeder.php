@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Ruben',
-            'email' => 'rubenfv38@educastur.es', 
+            'email' => 'admin@admin.es', 
             'email_verified_at' => now(),
             'password' => Hash::make('naranco'),
             'role_id' => Role::getRoleByName('administrador')->first()->id,

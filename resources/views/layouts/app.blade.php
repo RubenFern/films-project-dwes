@@ -17,6 +17,8 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/images/logo.svg" />
 </head>
 <body class="bg-body text-white h-screen antialiased leading-none font-sans">
     <div id="app">

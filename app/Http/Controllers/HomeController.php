@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pelicula;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Retorno 5 películas aleatorias
+        $sugerenciaDePeliculas = Pelicula::inRandomOrder()->limit(5)->get();
+
+        return view('home', compact('sugerenciaDePeliculas'));
     }
 }

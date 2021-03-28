@@ -61,8 +61,7 @@ class PeliculaAlquiladaController extends Controller
 
             PeliculaAlquilada::create([
                 'id_pelicula' => $PeliculaAlquilada->id,
-                'id_user' => 1, // QUITAR EL ID POR DEFECTO DE 1
-                'devuelta' => false
+                'id_user' => 1 // QUITAR EL ID POR DEFECTO DE 1
             ]);
 
             return redirect()

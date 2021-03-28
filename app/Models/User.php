@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -40,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Un usuario puede tener varias películas alquiladas
+    public function pelicula_alquilada()
+    {
+        return $this->hasMany(PeliculaAlquilada::class);
+    }
+
+    // Un usuario pertenece a un role
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

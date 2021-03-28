@@ -17,4 +17,11 @@ class Genero extends Model
     protected $fillable = [
         'genero'    
     ];
+
+    // Un género puede tener varias películas
+    public function pelicula()
+    {   
+        return $this->hasMany(Pelicula::class);
+    }
+
 }

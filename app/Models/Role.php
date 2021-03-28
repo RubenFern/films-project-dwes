@@ -22,4 +22,10 @@ class Role extends Model
     {
         return Role::select('id')->where('role', $rolename);
     }
+
+    // Un rol puede tener varios usuarios
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

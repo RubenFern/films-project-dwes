@@ -24,4 +24,16 @@ class Pelicula extends Model
         'cantidad',
         'imagen'
     ];
+
+    // Una película pertenece a un género
+    public function genero()
+    {
+        return $this->belongsTo(Genero::class);
+    }
+
+    // Una película puede tener varias películas alquiladas
+    public function pelicula_alquilada()
+    {
+        return $this->hasMany(PeliculaAlquilada::class);
+    }
 }

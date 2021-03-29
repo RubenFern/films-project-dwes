@@ -13,15 +13,15 @@
         @foreach ($peliculasAlquiladas as $peliculaAlquilada)
             <tr>
                 <td>
-                    <a href="{{ route('peliculas.show', ['pelicula' => $peliculaAlquilada->id]) }}">
-                        {{ $peliculaAlquilada->titulo }}
+                    <a href="{{ route('peliculas.show', ['pelicula' => $peliculaAlquilada->pelicula->id]) }}">
+                        {{ $peliculaAlquilada->pelicula->titulo }}
                     </a>
                 </td> 
-                <td>{{ $peliculaAlquilada->sinopsis }}</td> 
-                <td>{{ $peliculaAlquilada->director }}</td> 
-                <td>{{ $peliculaAlquilada->año }}</td> 
+                <td>{{ $peliculaAlquilada->pelicula->sinopsis }}</td> 
+                <td>{{ $peliculaAlquilada->pelicula->director }}</td> 
+                <td>{{ $peliculaAlquilada->pelicula->año }}</td> 
                 <td>
-                    <img width="50" src="{{ $peliculaAlquilada->imagen }}" >
+                    <img width="50" src="{{ $peliculaAlquilada->pelicula->imagen }}" >
                 </td>
             </tr>
         @endforeach

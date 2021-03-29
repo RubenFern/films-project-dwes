@@ -28,20 +28,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 |--------------------------------------------------------------------------
 */
 Route::get('peliculas', [PeliculaController::class, 'index'])->name('peliculas.index');
-
-/**** Rutas para añadir películas ****/
-Route::get('peliculas/añadir', [PeliculaController::class, 'create'])->name('peliculas.create'); // admin
-Route::post('peliculas', [PeliculaController::class, 'store'])->name('peliculas.store'); // admin
-
 Route::get('peliculas/{pelicula}', [PeliculaController::class, 'show'])->name('peliculas.show');
 
-/**** Rutas para editar películas ****/
-Route::get('peliculas/{pelicula}/editar', [PeliculaController::class, 'edit'])->name('peliculas.edit'); // admin
-// Uso el método match porque para actualizar existen 2 métodos
-Route::match(['put', 'patch'], 'peliculas/{pelicula}', [PeliculaController::class, 'update'])->name('peliculas.update'); // admin
-
-/**** Ruta para eliminar una película ****/
-Route::delete('peliculas/{pelicula}', [PeliculaController::class, 'destroy'])->name('peliculas.destroy'); // admin
 
 /*
 |--------------------------------------------------------------------------
@@ -49,16 +37,7 @@ Route::delete('peliculas/{pelicula}', [PeliculaController::class, 'destroy'])->n
 |--------------------------------------------------------------------------
 */
 Route::get('generos', [GeneroController::class, 'index'])->name('generos.index');
-
-Route::get('generos/añadir', [GeneroController::class, 'create'])->name('generos.create'); // admin
-Route::post('generos', [GeneroController::class, 'store'])->name('generos.store'); // admin
-
 Route::get('generos/{genero}', [GeneroController::class, 'show'])->name('generos.show');
-
-Route::get('generos/{genero}/editar', [GeneroController::class, 'edit'])->name('generos.edit'); // admin
-Route::match(['put', 'patch'], 'generos/{genero}', [GeneroController::class, 'update'])->name('generos.update'); // admin
-
-Route::delete('generos/{genero}', [GeneroController::class, 'destroy'])->name('generos.destroy'); // admin
 
 /*
 |--------------------------------------------------------------------------

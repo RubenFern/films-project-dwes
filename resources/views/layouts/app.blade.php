@@ -76,6 +76,11 @@
 
                                 <div class=" desplegable bg-body absolute mt-2 w-40 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-4" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                     <div class="py-1" role="none">
+                                        
+                                        @if (Auth::user()->isAdmin())
+                                            <a href="{{ route('admin.index') }}">Panel del administrador</a>
+                                        @endif
+                                      
                                         <a  href="{{ route('logout') }}"
                                             class="no-underline hover:underline flex items-center text-gray-100"
                                             onclick="event.preventDefault();

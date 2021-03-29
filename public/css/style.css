@@ -22,10 +22,19 @@
     display: none;
 }
 
-img {
-    width: 23%;
-}
-
 .img_sugerencia {
     width: 80%;
+}
+
+.icono {
+    width: 8px;
+}
+
+.logout {
+    width: 17px;
+}
+
+.admin-info {
+    display: grid;
+    grid-template-columns: 20% auto;
 }

@@ -20,7 +20,7 @@ class Role extends Model
 
     public static function getRoleByName(String $rolename)
     {
-        return Role::select('id')->where('role', $rolename)->first();
+        return Role::select('id')->where('role', $rolename);
     }
 
     // Un role puede tener varios usuarios

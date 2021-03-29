@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
 
             // Configuro la ruta a la que sólo accede el administrador
             Route::prefix('admin')
-                ->middleware(['web', 'auth'])
+                ->middleware(['web', 'auth', 'is_admin'])
                 ->namespace("{$this->namespace}\Admin")
                 ->group(base_path('routes/admin.php'));
         });

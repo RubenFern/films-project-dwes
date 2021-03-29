@@ -40,16 +40,6 @@
                             {{ config('app.name', 'FilmsProject-DWES') }}
                         </a>
                     @endguest
-                    
-                    <ul class="ml-5 space-x-4 flex">
-                        <li>
-                            <a href="{{ route('peliculas.create') }}" class="flex items-center hover:underline">{{ __('Añadir película') }} <img class="ml-2 items-center" src="/images/add.svg" alt="add.svg"></a>
-                        </li>
-    
-                        <li>
-                            <a href="{{ route('generos.create') }}" class="flex items-center hover:underline">{{ __('Añadir género') }} <img class="ml-2 items-center" src="/images/add.svg" alt="add.svg"></a>
-                        </li>
-                    </ul>
                 </div>
                 <nav class="text-gray-300 text-sm sm:text-base">
                     <ul class="space-x-8 flex">
@@ -74,19 +64,19 @@
                             <li class="desplegable-padre">
                                 <span class="cursor-pointer flex text-white items-center" id="usuario">{{ Auth::user()->name }} <img class="ml-2" src="/images/arrow-down.svg" alt="arrow-down.svg"></span>
 
-                                <div class=" desplegable bg-body absolute mt-2 w-40 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-4" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <div class=" desplegable bg-teal-700 absolute mt-4 w-50 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-2 px-4" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                     <div class="py-1" role="none">
                                         
-                                        @if (Auth::user()->isAdmin())
-                                            <a href="{{ route('admin.index') }}">Panel del administrador</a>
+                                        @if (optional(Auth::user())->isAdmin())
+                                            <a class="pb-10 hover:underline" href="{{ route('admin.index') }}">Panel del administrador</a>
                                         @endif
                                       
                                         <a  href="{{ route('logout') }}"
-                                            class="no-underline hover:underline flex items-center text-gray-100"
+                                            class="mt-2 no-underline hover:underline flex items-center text-gray-100"
                                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                                 {{ __('Cerrar sesión') }}
-                                            <img class="ml-3 text-xs" src="/images/logout.svg" alt="logout.svg">
+                                            <img class="logout ml-3" src="/images/logout.svg" alt="logout.svg">
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                                             {{ csrf_field() }}
@@ -94,20 +84,20 @@
                                     </div>
                                 </div>
                             </li>
+
+                            @if (!Request::is('home') && !Request::is('/'))
+                                <a class="focus:outline-none text-gray-300 text-md font-semibold py-1 px-3 rounded-md bg-teal-500 hover:bg-teal-700 hover:shadow-lg flex items-center" href="{{ URL::previous() }}">
+                                    <img class="mr-2 icono" src="/images/back.svg" alt="back.svg">
+                                    {{ __('Atrás') }}
+                                </a>  
+                            @endif
                         @endguest
                     </ul>
                 </nav>
             </div>
         </header>
 
-        @if (!Request::is('home') && !Request::is('/'))
-            <div class="inline-block m-6 mr-24 flex justify-end">
-                <a class="focus:outline-none text-gray-300 text-md font-semibold py-2.5 px-5 rounded-md bg-gray-500 hover:bg-gray-600 hover:shadow-lg flex items-center" href="{{ URL::previous() }}">
-                    <img class="mr-2" src="/images/back.svg" alt="back.svg">
-                    {{ __('Atrás') }}
-                </a>
-            </div>    
-        @endif
+        
         
 
         {{-- Control de errores y sucesos --}}

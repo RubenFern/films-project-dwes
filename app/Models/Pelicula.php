@@ -36,6 +36,6 @@ class Pelicula extends Model
     // Una película puede tener varias películas alquiladas
     public function peliculas_alquiladas()
     {
-        return $this->hasMany(PeliculaAlquilada::class);
+        return $this->hasMany(PeliculaAlquilada::class, 'id');
     }
 }

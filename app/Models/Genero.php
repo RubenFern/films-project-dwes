@@ -21,7 +21,7 @@ class Genero extends Model
     // Un género puede tener varias películas
     public function peliculas()
     {   
-        return $this->hasMany(Pelicula::class);
+        return $this->hasMany(Pelicula::class, 'id');
     }
 
 }

@@ -26,6 +26,6 @@ class Role extends Model
     // Un role puede tener varios usuarios
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'id');
     }
 }

@@ -37,12 +37,12 @@ class PeliculaAlquilada extends Model
     // Una película alquilada pertenece a una película
     public function pelicula()
     {
-        return $this->belongsTo(Pelicula::class);
+        return $this->belongsTo(Pelicula::class, 'id_pelicula');
     }
 
     // Una película alquilada pertenece a un usuario
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

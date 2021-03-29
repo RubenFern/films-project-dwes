@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\PeliculaController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 | Admin Routes
 |--------------------------------------------------------------------------
 */
+// Ruta principal (nombre_app/admin)
+Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
 /*
 |--------------------------------------------------------------------------

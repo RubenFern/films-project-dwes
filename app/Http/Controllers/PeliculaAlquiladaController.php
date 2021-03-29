@@ -21,9 +21,17 @@ class PeliculaAlquiladaController extends Controller
     */ 
     public function index()
     {
-        $peliculasAlquiladas = PeliculaAlquilada::all();
+        $usuario = auth()->user();
 
-        return view('peliculas-alquiladas.index', compact('peliculasAlquiladas'));
+        if ($usuario->id == 1)
+        {
+            return redirect()->back()->withErrors('Los administradores no pueden alquilar películas');
+        } else
+        {
+            $peliculasAlquiladas = PeliculaAlquilada::where('id_user', $usuario->id)->get();   
+
+            return view('peliculas-alquiladas.index', compact('peliculasAlquiladas', 'usuario'));
+        }
     }
 
     public function create($PeliculaAlquilada)
@@ -46,7 +54,8 @@ class PeliculaAlquiladaController extends Controller
          * Saco un error flash de sesión si el usuario quiere alquilar una película
          * que ya tenga alquilada
          */
-        $comprobarAlquiler = PeliculaAlquilada::where('id_pelicula', $PeliculaAlquilada)->where('devuelta', false)->count();
+        $idUsuario = auth()->user()->id;
+        $comprobarAlquiler = PeliculaAlquilada::where('id_pelicula', $PeliculaAlquilada)->where('id_user', $idUsuario)->where('devuelta', false)->count();
 
         if ($comprobarAlquiler > 0)
         {
@@ -61,7 +70,7 @@ class PeliculaAlquiladaController extends Controller
 
             PeliculaAlquilada::create([
                 'id_pelicula' => $PeliculaAlquilada->id,
-                'id_user' => 1 // QUITAR EL ID POR DEFECTO DE 1
+                'id_user' => $idUsuario
             ]);
 
             return redirect()

@@ -38,3 +38,10 @@
 .options {
     display: none;
 }
+
+.films_not_found {
+    background-image: url(../images/films_not_found.jpg);
+    background-size: 100%;
+    width: 1000px;
+    height: 600px;
+}

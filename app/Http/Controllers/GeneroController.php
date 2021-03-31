@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genero;
+use App\Models\Pelicula;
 use Illuminate\Http\Request;
 
 class GeneroController extends Controller
@@ -16,7 +17,9 @@ class GeneroController extends Controller
 
     public function show(Genero $genero)
     {
-        return view('generos.show', compact('genero'));
+        $peliculasFiltradas = Pelicula::where('id_genero', $genero->id)->get();
+
+        return view('generos.show', compact('peliculasFiltradas', 'genero'));
     }
 
     public function create()

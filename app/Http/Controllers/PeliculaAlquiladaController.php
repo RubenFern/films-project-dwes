@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelicula;
 use App\Models\PeliculaAlquilada;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PeliculaAlquiladaController extends Controller
@@ -66,11 +67,13 @@ class PeliculaAlquiladaController extends Controller
             /**
              * Si no está alquilada la inserto en la BD y creo un mensaje de éxito
              */
-            $PeliculaAlquilada = Pelicula::findOrFail($PeliculaAlquilada); 
+            $PeliculaAlquilada = Pelicula::findOrFail($PeliculaAlquilada);
+            $fechaAlquiler = Carbon::now();
 
             PeliculaAlquilada::create([
                 'id_pelicula' => $PeliculaAlquilada->id,
-                'id_user' => $idUsuario
+                'id_user' => $idUsuario,
+                'fecha_alquiler' => $fechaAlquiler
             ]);
 
             return redirect()

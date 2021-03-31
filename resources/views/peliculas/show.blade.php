@@ -2,9 +2,9 @@
 
 @section('content')
 
-    <section class="w-4/6 m-auto">
+    <section class="max-w-3xl m-auto">
         <div class="flex bg-black bg-opacity-50 rounded-2xl box-border w-full mt-10">
-            <img class="rounded-l-xl" src="{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
+            <img class="rounded-l-xl w-44" src="{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
             <div class="flex flex-col justify-between box-border w-full">
                 <div>
                     <h2 class="text-teal-100 text-xl lg:text-2xl p-4 pl-10">{{ $pelicula->titulo }}</h2>

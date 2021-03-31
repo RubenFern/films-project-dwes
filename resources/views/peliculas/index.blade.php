@@ -3,13 +3,13 @@
 @section('content')
 
 
-    <section class="w-3/4 m-auto">
-        <h1 class="text-teal-300 text-3xl mb-5 font-semibold">Muestro todas las películas</h1>
+    <section class="max-w-sm lg:max-w-5xl m-auto mb-6">
+        <h1 class="my-8 text-teal-300 text-3xl font-semibold">Nuestro catálogo</h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             @foreach ($peliculas as $pelicula)
                 <div class="flex bg-black bg-opacity-50 rounded-2xl box-border w-full">
-                    <img class="rounded-l-xl" src="{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
+                    <img class="rounded-l-xl w-32 lg:w-40" src="{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
                     <div class="flex flex-col justify-between box-border w-full">
                         <div>
                             <h2 class="text-teal-100 text-xl p-4 pl-10">{{ $pelicula->titulo }}</h2>

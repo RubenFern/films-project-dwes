@@ -1,7 +1,12 @@
 $(document).ready(function()
 {
-    $("#usuario").click(function()
+    $("#user-menu").on("click", function()
     {
-        $(".desplegable").toggle();
+        $(".options").toggle();
+    });
+
+    $("#mobile-menu").on("click", function()
+    {
+        $("#submenu").toggle();
     });
 });

@@ -22,79 +22,86 @@
 </head>
 <body class="bg-body text-white h-screen antialiased leading-none font-sans">
     <div id="app">
-        <header class="bg-header py-6">
-            <div class="container mx-auto flex justify-between items-center px-6">
-                <div class="flex items-center">
-                    {{-- 
+        <header class="bg-header">
+            <nav>
+                <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+                <div class="relative flex items-center justify-between h-16">
+                    <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <!-- Mobile menu button-->
+                    <button type="button" id="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <img src="/images/submenu.svg" alt="submneu.svg">
+                    </button>
+                    </div>
+                    <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class="flex-shrink-0 flex items-center">
+                        {{-- 
                         La pagina principal será la de welcome solo para usuarios no registrados.
                         Para los registrados la página principal es 'home' 
-                    --}}
-                    @guest
-                        <a href="{{ url('/') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
-                            <img class="w-9 mr-3" src="/images/logo.svg" alt="logo.svg">
-                            {{ config('app.name', 'FilmsProject-DWES') }}
-                        </a>
-                    @else
-                        <a href="{{ url('/home') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
-                            <img class="w-9 mr-3" src="/images/logo.svg" alt="logo.svg">
-                            {{ config('app.name', 'FilmsProject-DWES') }}
-                        </a>
-                    @endguest
-                </div>
-                <nav class="text-gray-300 text-sm sm:text-base">
-                    <ul class="space-x-8 flex">
+                        --}}
                         @guest
-                            <li>
-                                <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Inicia sesión') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li>
-                                    <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Regístrate') }}</a>
-                                </li>
-                            @endif
+                            <a href="{{ url('/') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
+                                <img class="block mr-2 h-8 w-auto" src="/images/logo.svg" alt="logo.svg">
+                                {{ config('app.name', 'FilmsProject-DWES') }}
+                            </a>
                         @else
-                            <li>
-                                <a href="{{ route('peliculas.index') }}" class="hover:underline">{{ __('Películas') }}</a>
-                            </li>
-
-                            <li>
-                                <a href="{{ route('generos.index') }}" class="hover:underline">{{ __('Géneros') }}</a>
-                            </li>
-
-                            <li class="desplegable-padre">
-                                <span class="cursor-pointer flex text-white items-center" id="usuario">{{ Auth::user()->name }} <img class="ml-2" src="/images/arrow-down.svg" alt="arrow-down.svg"></span>
-
-                                <div class=" desplegable bg-teal-700 absolute mt-4 w-50 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-2 px-4" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <div class="py-1" role="none">
-                                        
-                                        @if (optional(Auth::user())->isAdmin())
-                                            <a class="pb-10 hover:underline" href="{{ route('admin.index') }}">Panel del administrador</a>
-                                        @endif
-                                      
-                                        <a  href="{{ route('logout') }}"
-                                            class="mt-2 no-underline hover:underline flex items-center text-gray-100"
-                                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                                {{ __('Cerrar sesión') }}
-                                            <img class="logout ml-3" src="/images/logout.svg" alt="logout.svg">
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </div>
-                                </div>
-                            </li>
-
-                            @if (!Request::is('home') && !Request::is('/'))
-                                <a class="focus:outline-none text-gray-300 text-md font-semibold py-1 px-3 rounded-md bg-teal-500 hover:bg-teal-700 hover:shadow-lg flex items-center" href="{{ URL::previous() }}">
-                                    <img class="mr-2 icono" src="/images/back.svg" alt="back.svg">
-                                    {{ __('Atrás') }}
-                                </a>  
-                            @endif
+                            <a href="{{ url('/home') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
+                                <img class="block mr-2 h-8 w-auto" src="/images/logo.svg" alt="logo.svg">
+                                {{ config('app.name', 'FilmsProject-DWES') }}
+                            </a>
                         @endguest
-                    </ul>
-                </nav>
-            </div>
+                    </div>
+                    <div class="hidden sm:block sm:ml-6">
+                        <div class="flex space-x-4">
+                            <a href="{{ route('peliculas.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">Películas</a>
+                
+                            <a href="{{ route('generos.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">Géneros</a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <!-- Profile dropdown -->
+                        <div class="ml-3 relative">
+                            @guest    
+                                <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="{{ route('login') }}">{{ __('Inicia sesión') }}</a>
+                                @if (Route::has('register'))
+                                    <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="{{ route('register') }}">{{ __('Regístrate') }}</a>
+                                @endif
+                            @else
+                                <div id="user-menu">
+                                    <span class="cursor-pointer flex text-teal-400 hover:text-white font-semibold items-center">{{ Auth::user()->name }} <img class="ml-2" src="/images/arrow-down.svg" alt="arrow-down.svg"></span>
+                                </div>
+
+                                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-black ring-1 ring-black ring-opacity-5 focus:outline-none options">
+                                    @if (optional(Auth::user())->isAdmin())
+                                        <a class="block px-4 py-2 text-sm text-white hover:text-gray-400" href="{{ route('admin.index') }}">Panel del administrador</a>
+                                    @endif
+                                
+                                    <a  href="{{ route('logout') }}"
+                                        class="flex block px-4 py-2 text-sm text-white hover:text-gray-400"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Cerrar sesión') }}
+                                        <img class="logout ml-3" src="/images/logout.svg" alt="logout.svg">
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </div>
+                            @endguest   
+                        </div>
+                    </div>
+                </div>
+                </div>
+            
+                <!-- Menú de móvil -->
+                <div class="hidden" id="submenu">
+                    <div class="px-2 pt-2 pb-3 space-y-1">
+                        <a href="{{ route('peliculas.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Películas</a>
+                
+                        <a href="{{ route('generos.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Géneros</a>
+                    </div>
+                </div>
+            </nav>
         </header>
 
         

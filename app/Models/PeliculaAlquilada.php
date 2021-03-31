@@ -19,17 +19,18 @@ class PeliculaAlquilada extends Model
     protected $fillable = [
         'id_pelicula',
         'id_user',
-        'devuelta'
+        'devuelta',
+        'fecha_alquiler',
+        'fecha_devolucion'
     ];
-
 
     // Uso la instancia de Carbon para el manejo de fechas
     /**
-     * The attributes that should be mutated to dates.
+     * The attributes that should be cast.
      *
      * @var array
      */
-    protected $dates = [
+    protected $casts = [
         'fecha_alquiler',
         'fecha_devolucion'
     ];

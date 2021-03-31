@@ -20,7 +20,7 @@
 
     <link rel="shortcut icon" href="/images/logo.svg" />
 </head>
-<body class="bg-body text-white h-screen antialiased leading-none font-sans">
+<body class="bg-body text-white h-screen antialiased leading-none font-sans flex flex-col justify-between">
     <div id="app">
         <header class="bg-header">
             <nav>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <!-- Profile dropdown -->
-                        <div class="ml-3 relative">
+                        <div class="ml-3 relative mr-10">
                             @guest    
                                 <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="{{ route('login') }}">{{ __('Inicia sesión') }}</a>
                                 @if (Route::has('register'))
@@ -89,6 +89,13 @@
                                 </div>
                             @endguest   
                         </div>
+                        
+                        @if (!Request::is('home') && !Request::is('/'))
+                            <a class="flex text-gray-300 bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" href="{{ URL::previous() }}">
+                                <img class="mr-2 icono" src="/images/back.svg" alt="back.svg">
+                                {{ __('Atrás') }}
+                            </a>  
+                        @endif
                     </div>
                 </div>
                 </div>
@@ -109,13 +116,13 @@
 
         {{-- Control de errores y sucesos --}}
         @if (session()->has('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-1/2 m-5" role="alert">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-1/2 mt-5 m-auto" role="alert">
                 <p class="font-semibold">{{ session()->get('success') }}</p>            
             </div>
         @endif
 
         @if (isset($errors) && $errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-1/2 m-5" role="alert">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-1/2 mt-5 m-auto" role="alert">
                 @foreach ($errors->all() as $error)
                     <p class="font-semibold mb-1">{{ $error }}</p>
                 @endforeach
@@ -125,6 +132,22 @@
         {{-- Fin del control de errores y sucesos --}}
 
         @yield('content')
+
     </div>
+    <footer class="bg-footer p-3 flex justify-around items-center">
+        @guest
+            <a href="{{ url('/') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
+                <img class="block mr-2 h-8 w-auto" src="/images/logo.svg" alt="logo.svg">
+                {{ config('app.name', 'FilmsProject-DWES') }}
+            </a>
+        @else
+            <a href="{{ url('/home') }}" class="text-xl font-semibold text-gray-100 no-underline flex items-center">
+                <img class="block mr-2 h-8 w-auto" src="/images/logo.svg" alt="logo.svg">
+                {{ config('app.name', 'FilmsProject-DWES') }}
+            </a>
+        @endguest
+
+        <a href="https://github.com/RubenFern/FilmsProject-DWES" target="_blank"><img width="30" src="/images/github.svg" alt="github.svg"></a>
+    </footer>
 </body>
 </html>

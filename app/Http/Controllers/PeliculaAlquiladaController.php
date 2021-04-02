@@ -6,6 +6,7 @@ use App\Models\Pelicula;
 use App\Models\PeliculaAlquilada;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeliculaAlquiladaController extends Controller
 {
@@ -22,7 +23,7 @@ class PeliculaAlquiladaController extends Controller
     */ 
     public function index()
     {
-        $usuario = auth()->user();
+        $usuario = Auth::User();
 
         if ($usuario->id == 1)
         {

@@ -60,7 +60,7 @@
                     </div>
                     <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <!-- Profile dropdown -->
-                        <div class="ml-3 relative mr-10">
+                        <div class="ml-3 relative mr-10 hidden sm:block">
                             @guest    
                                 <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="{{ route('login') }}">{{ __('Inicia sesión') }}</a>
                                 @if (Route::has('register'))
@@ -87,7 +87,7 @@
                                         {{ csrf_field() }}
                                     </form>
                                 </div>
-                            @endguest   
+                            @endguest
                         </div>
                         
                         @if (!Request::is('home') && !Request::is('/'))
@@ -103,6 +103,34 @@
                 <!-- Menú de móvil -->
                 <div class="hidden" id="submenu">
                     <div class="px-2 pt-2 pb-3 space-y-1">
+                        @guest    
+                            <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="{{ route('login') }}">{{ __('Inicia sesión') }}</a>
+                            @if (Route::has('register'))
+                                <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="{{ route('register') }}">{{ __('Regístrate') }}</a>
+                            @endif
+                        @else
+                            <div id="user-menu">
+                                <span class="cursor-pointer flex text-teal-400 hover:text-white font-semibold items-center">{{ Auth::user()->name }} <img class="ml-2" src="/images/arrow-down.svg" alt="arrow-down.svg"></span>
+                            </div>
+
+                            <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-black ring-1 ring-black ring-opacity-5 focus:outline-none options">
+                                @if (optional(Auth::user())->isAdmin())
+                                    <a class="block px-4 py-2 text-sm text-white hover:text-gray-400" href="{{ route('admin.index') }}">Panel del administrador</a>
+                                @endif
+                                
+                                <a  href="{{ route('logout') }}"
+                                    class="flex block px-4 py-2 text-sm text-white hover:text-gray-400"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        {{ __('Cerrar sesión') }}
+                                    <img class="logout ml-3" src="/images/logout.svg" alt="logout.svg">
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                    {{ csrf_field() }}
+                                </form>
+                            </div>
+                        @endguest
+
                         <a href="{{ route('peliculas.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Películas</a>
                 
                         <a href="{{ route('generos.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Géneros</a>

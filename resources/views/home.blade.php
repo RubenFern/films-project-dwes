@@ -9,8 +9,12 @@
                 {{ session('status') }}
             </div>
         @endif
+        
+        <a class="text-white bg-teal-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="{{ route('peliculas-alquiladas.index') }}">Ver películas alquiladas</a>
 
-        <section class="w-2/3 m-auto">
+        <h1 class="text-2xl text-teal-400 font-semibold text-center">Hola {{ Auth::user()->name }}, tienes alquiladas {{ $numPeliculasAlquiladas }} de 10 películas.</h1>
+
+        <section class="w-2/3 m-auto mt-15">
             <h2 class="text-xl text-center">Sugerencias</h2>
             <div class="flex items-start w-full p-6">
                 @foreach ($sugerenciaDePeliculas as $pelicula)

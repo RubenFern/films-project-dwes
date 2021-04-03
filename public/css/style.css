@@ -18,10 +18,6 @@
     color: #C9C9C9;
 }
 
-.img_sugerencia {
-    width: 80%;
-}
-
 .icono {
     width: 8px;
 }
@@ -44,4 +40,8 @@
     background-size: 100%;
     width: 1000px;
     height: 600px;
+}
+
+.img-sugerencia {
+    width: 24rem;
 }

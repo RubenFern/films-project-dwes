@@ -91,11 +91,24 @@ class PeliculaController extends Controller
     // Elimino la película con el id marcado
     public function destroy(Pelicula $pelicula)
     {
-        $pelicula->delete();
+        // Si la película que se borre la tiene alquilaa un usuario retorno un error
+        $borradoValido = PeliculaAlquilada::where('id_pelicula', $pelicula->id)->where('devuelta', 0)->count();
 
-        // Retorno la vista de todas las películas y un mensaje
-        return redirect()
-                    ->route('admin.index')
-                    ->withSuccess('Se ha eliminado la película: ' . $pelicula->titulo);
+        if ($borradoValido != 0)
+        {
+            return redirect()
+                        ->route('admin.index')
+                        ->withErrors('No se puede eliminar la película, un usuario la tiene alquilada');
+        } else
+        {
+            $pelicula->delete();
+
+            // Retorno la vista de todas las películas y un mensaje
+            return redirect()
+                        ->route('admin.index')
+                        ->withSuccess('Se ha eliminado la película: ' . $pelicula->titulo);
+        }
+
+        
     }
 }

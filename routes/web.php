@@ -52,4 +52,4 @@ Route::get('peliculas/{pelicula}/alquilar', [PeliculaAlquiladaController::class,
 Route::post('peliculas/{pelicula}', [PeliculaAlquiladaController::class, 'store'])->name('peliculas-alquiladas.store');
 
 Route::get('peliculas-alquiladas/{pelicula_alquilada}/devolver', [PeliculaAlquiladaController::class, 'edit'])->name('peliculas-alquiladas.edit');
-Route::match(['put', 'patch'], 'peliculas_alquiladas/{pelicula-alquilada}', [PeliculaAlquiladaController::class, 'update'])->name('peliculas-alquiladas.update');
+Route::match(['put', 'patch'], 'peliculas-alquiladas/{pelicula_alquilada}', [PeliculaAlquiladaController::class, 'update'])->name('peliculas-alquiladas.update');

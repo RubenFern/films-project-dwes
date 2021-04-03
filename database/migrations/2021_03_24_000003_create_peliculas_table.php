@@ -26,7 +26,7 @@ class CreatePeliculasTable extends Migration
             $table->timestamps();
 
             // Clave foránea
-            $table->foreign('id_genero')->references('id')->on('generos');
+            $table->foreign('id_genero')->references('id')->on('generos')->onDelete('cascade');
         });
     }
 

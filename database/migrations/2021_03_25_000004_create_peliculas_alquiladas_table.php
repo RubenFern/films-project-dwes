@@ -28,7 +28,7 @@ class CreatePeliculasAlquiladasTable extends Migration
              * me interesa eliminar su registro en la tabla de las películas alquiladas.
              */
             //$table->foreign('id_pelicula')->references('id')->on('peliculas');
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

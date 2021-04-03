@@ -24,4 +24,9 @@ class Genero extends Model
         return $this->hasMany(Pelicula::class, 'id');
     }
 
+    public static function getGeneroByName(String $genero)
+    {
+        return Genero::select('id')->where('genero', $genero);
+    }
+
 }

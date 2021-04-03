@@ -11,7 +11,7 @@
                     Edita la película de {{ $pelicula->titulo }}
                 </header>
 
-                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8 text-black" method="POST" action="{{ route('peliculas.update', ['pelicula' => $pelicula->id]) }}">
+                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8 text-black" method="POST" action="{{ route('peliculas.update', ['pelicula' => $pelicula->id]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <br>

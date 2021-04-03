@@ -11,7 +11,7 @@
                     {{ __('Añade una película') }}
                 </header>
 
-                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8 text-black" method="POST" action="{{ route('peliculas.store') }}">
+                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8 text-black" method="POST" action="{{ route('peliculas.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="flex flex-wrap">

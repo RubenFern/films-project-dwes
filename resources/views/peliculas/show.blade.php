@@ -16,7 +16,26 @@
                 </div>         
                 
                 <div class="pl-4 mb-7 m-auto">
-                    <a class="bg-teal-500 py-2 px-16 rounded-xl" href="{{ route('peliculas-alquiladas.create', ['pelicula' => $pelicula->id]) }}">Alquilar</a>
+                    @if (Auth::user()->id == 1)
+                        <div class="flex justify-between">
+                            <a class="bg-teal-500 py-2 px-16 rounded-xl mr-2" 
+                            href="{{ route('peliculas.edit', ['pelicula' => $pelicula->id]) }}">Editar</a>
+                            <form class="ml-2" method='POST' action="{{ route('peliculas.destroy', ['pelicula' => $pelicula->id])}}">
+                                @csrf
+                                @method('DELETE')
+            
+                                <input class="bg-teal-500 py-2 px-16 rounded-xl" 
+                                    type="submit" value="Eliminar">
+                            </form>
+                        </div>
+                    @else
+                        @if (!$alquilada)
+                            <a class="bg-teal-500 py-2 px-16 rounded-xl" href="{{ route('peliculas-alquiladas.create', ['pelicula' => $pelicula->id]) }}">Alquilar</a>
+                        @else
+                            <a class="bg-teal-500 py-2 px-16 rounded-xl" href="{{ route('peliculas-alquiladas.edit', ['pelicula_alquilada' => $alquilada->id]) }}">Devolver</a>
+                        @endif
+                                                
+                    @endif
                 </div>
             </div>
         </div>

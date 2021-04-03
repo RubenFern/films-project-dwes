@@ -40,15 +40,15 @@
             <main class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ml-15 gap-10 mb-10">
                 @foreach ($peliculas as $pelicula)
                     <div class="rounded-xl">
-                        <img class="rounded-xl m-auto" src="/images/{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
+                        <a href="{{ route('peliculas.show', ['pelicula' => $pelicula->id]) }}"><img class="rounded-xl m-auto w-64" src="/images/{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}"></a>
 
                         <h1 class="text-center mt-1 text-lg">{{ $pelicula->titulo }}</h1>
 
-                        <div class="flex justify-around mt-4">
-                            <a class="py-2 px-4 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75" 
+                        <div class="flex justify-center mt-4">
+                            <a class="py-2 px-4 mr-4 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75" 
                                 href="{{ route('peliculas.edit', ['pelicula' => $pelicula->id]) }}">Editar</a>                
 
-                            <form method='POST' action="{{ route('peliculas.destroy', ['pelicula' => $pelicula->id])}}">
+                            <form method='POST' class="ml-4" action="{{ route('peliculas.destroy', ['pelicula' => $pelicula->id])}}">
                                 @csrf
                                 @method('DELETE')
             

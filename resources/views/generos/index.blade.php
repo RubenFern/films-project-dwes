@@ -7,8 +7,9 @@
 
         <div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 xl:gap-10">
             @foreach ($generos as $genero)
-                <a class="text-gray-300 text-center hover:bg-teal-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{{ route('generos.show', ['genero' => $genero->id]) }}">
-                    {{ $genero->genero }}
+                <a class="text-gray-300 text-center hover:bg-teal-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" 
+                    href="{{ route('generos.show', ['genero' => $genero["id"]]) }}">
+                    {{ $genero["nombre"] }} ({{ $genero["numPeliculas"] }})
                 </a>
             @endforeach
         </div>

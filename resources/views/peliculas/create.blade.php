@@ -2,59 +2,99 @@
 
 @section('content')
 
-    <h1>Introduce los datos de la película</h1>
+<main class="sm:container sm:mx-auto sm:w-6/12 sm:mt-10 mb-10">
+    <div class="flex">
+        <div class="w-full">
+            <section class="flex flex-col break-words bg-form sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
 
-    <form method="POST" action="{{ route('peliculas.store') }}">
-        @csrf
+                <header class="font-semibold bg-header-form text-white text-2xl py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
+                    {{ __('Añade una película') }}
+                </header>
 
-        <br>
+                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8 text-black" method="POST" action="{{ route('peliculas.store') }}">
+                    @csrf
 
-        <label for="titulo">Título: </label>
-        <input class="text-black" type="text" name="titulo" value="{{ old('titulo') }}">
+                    <div class="flex flex-wrap">
+                        <label for="titulo" class="block text-white text-sm font-bold mb-2 sm:mb-4">
+                            Título:
+                        </label>
 
-        <br><br>
+                        <input id="titulo" name="titulo" type="text" placeholder="Título de la película"
+                            class="form-input w-full @error('titulo') border-red-500 @enderror" value="{{ old('titulo') }}">
+                    </div>
 
-        <label for="genero">Género: </label>
-        <select class="text-black" name="id_genero" >
-            @foreach ($generos as $genero)
-                <option value="{{ $genero->id }}" {{ old('id_genero') == $genero->id ? 'selected' : '' }}>{{ $genero->genero }}</option>
-            @endforeach
-        </select>
+                    <div class="flex flex-wrap">
+                        <label for="genero" class="block text-white text-sm font-bold mb-2 sm:mb-4">
+                            Género
+                        </label>
 
-        <br><br>
+                        <select class="form-select w-full text-black @error('genero') border-red-500 @enderror" name="id_genero" id="id_genero">
+                            @foreach ($generos as $genero)
+                                <option value="{{ $genero->id }}" {{ old('id_genero') == $genero->id ? 'selected' : '' }}>{{ $genero->genero }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-        <label for="sinopsis">Sinopsis: </label><br>
-        <textarea class="text-black" name="sinopsis" cols="30" rows="10">{{ old('sinopsis') }}</textarea>
+                    <div class="flex flex-wrap">
+                        <label class="block text-white text-sm font-bold mb-2 sm:mb-4" for="sinopsis">
+                            Sinopsis:
+                        </label>
 
-        <br><br>
+                        <textarea placeholder="Añade una sinopsis" class="form-textarea w-full text-black @error('sinopsis') border-red-500 @enderror" id="sinopsis" name="sinopsis" cols="30" rows="10">{{ old('sinopsis') }}</textarea>
+                    </div>
 
-        <label for="director">Director: </label>
-        <input class="text-black" type="text" name="director" value="{{ old('director') }}">
+                    <div class="flex flex-wrap">
+                        <label class="block text-white text-sm font-bold mb-2 sm:mb-4" for="director">
+                            Director:
+                        </label>
 
-        <br><br>
+                        <input placeholder="Añade el director" class="form-input w-full @error('director') border-red-500 @enderror" type="text" name="director" value="{{ old('director') }}">
+                    </div>
 
-        <label for="cantidad">Cantidad</label>
-        <input class="text-black" type="number" name="cantidad" value="{{ old('cantidad') }}">
+                    <div class="flex flex-wrap">
+                        <label class="block text-white text-sm font-bold mb-2 sm:mb-4" for="cantidad">
+                            Cantidad:
+                        </label>
 
-        <br><br>
+                        <input placeholder="Introduce la cantidad" class="form-input w-full @error('cantidad') border-red-500 @enderror" type="number" name="cantidad" value="{{ old('cantidad') }}">
+                    </div>
 
-        <label for="precio">Precio: </label>
-        <input class="text-black" type="number" name="precio" step="0.01" value="{{ old('precio') }}">
-        <p class="text-sm text-gray-500">EL precio de estar entre 2.99€ y 49.99€</p>
+                    <div class="flex flex-wrap">
+                        <label class="block text-white text-sm font-bold mb-2 sm:mb-4" for="precio">
+                            Precio:
+                        </label>
 
-        <br><br>
+                        <input placeholder="Introduce el precio" class="form-input w-full @error('precio') border-red-500 @enderror" type="number" name="precio" step="0.01" value="{{ old('precio') }}">
+                        <p class="mt-1 text-sm text-gray-300">El precio de estar entre 2.99€ y 49.99€</p>
+                    </div>
 
-        <label for="año">Año: </label>
-        <input class="text-black" type="text" name="año" value="{{ old('año') }}">
+                    <div class="flex flex-wrap">
+                        <label class="block text-white text-sm font-bold mb-2 sm:mb-4" for="año">
+                            Año:
+                        </label>
 
-        <br><br>
+                        <input placeholder="Introduce el año" class="form-input w-full @error('año') border-red-500 @enderror" type="text" name="año" value="{{ old('año') }}">
+                    </div>
 
-        <label for="imagen">Imagen: </label>
-        <input class="text-black" type="file" name="imagen">
+                    <div class="flex flex-wrap">
+                        <label class="block text-white text-sm font-bold mb-2 sm:mb-4" for="imagen">
+                            Imagen:
+                        </label>
 
-        <br><br>
+                        <input class="w-full text-white form-file @error('imagen') border-red-500 @enderror" type="file" name="imagen">
+                    </div>
 
-        <input class="text-black" type="submit" name="añadir" value="Añadir película">
-    </form>
+                    <div class="flex flex-wrap">
+                        <button type="submit" name="añadir"
+                        class="w-full mb-5 select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-teal-500 hover:bg-teal-700 sm:py-4">
+                            Añadir película
+                        </button>
+                    </div>
+                </form>
+
+            </section>
+        </div>
+    </div>
+</main>
 
 @endsection

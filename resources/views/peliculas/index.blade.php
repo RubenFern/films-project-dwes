@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             @foreach ($peliculas as $pelicula)
                 <div class="flex bg-black bg-opacity-50 rounded-2xl box-border w-full">
-                    <img class="rounded-l-xl w-32 lg:w-40" src="{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
+                    <img class="rounded-l-xl w-32 lg:w-40" src="/images/{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
                     <div class="flex flex-col justify-between box-border w-full">
                         <div>
                             <h2 class="text-teal-100 text-xl p-4 pl-10">{{ $pelicula->titulo }}</h2>

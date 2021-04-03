@@ -70,7 +70,7 @@ class PeliculaController extends Controller
 
         // Retorno la vista de todas las películas y un mensaje
         return redirect()
-                    ->route('peliculas.index')
+                    ->route('admin.index')
                     ->withSuccess('Se ha eliminado la película: ' . $pelicula->titulo);
     }
 }

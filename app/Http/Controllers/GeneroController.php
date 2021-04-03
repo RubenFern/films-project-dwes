@@ -51,7 +51,7 @@ class GeneroController extends Controller
         Genero::create(request()->all());
 
         return redirect()
-                    ->route('generos.index')
+                    ->route('admin.index')
                     ->withSuccess('Se ha añadido el género correctamente');
     }
 
@@ -65,7 +65,7 @@ class GeneroController extends Controller
         $genero->update(request()->all());
 
         return redirect()
-                    ->route('generos.index')
+                    ->route('admin.index')
                     ->withSuccess('Se ha actualizado el género correctamente');
     }
 

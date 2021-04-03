@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class AlquiladaMailable extends Mailable
 {
@@ -33,7 +34,8 @@ class AlquiladaMailable extends Mailable
     {
         // Mnado la información de la película alquilada
         $peliculaAlquilada = PeliculaAlquilada::orderBy('fecha_alquiler', 'DESC')->first();
+        $usuario = Auth::user();
 
-        return $this->view('emails.pelicula-alquilada', compact('peliculaAlquilada'));
+        return $this->view('emails.pelicula-alquilada', compact('peliculaAlquilada', 'usuario'));
     }
 }

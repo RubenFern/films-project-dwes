@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <section class="max-w-3xl m-auto">
-        <div class="flex bg-black bg-opacity-50 rounded-2xl box-border w-full mt-10">
+    <section class="w-full m-auto">
+        <div class="flex bg-black bg-opacity-50 rounded-2xl box-border w-4/6 mt-10 m-auto">
             <img class="rounded-l-xl w-80" src="/images/{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
             <div class="flex flex-col justify-between box-border w-full">
                 <div>

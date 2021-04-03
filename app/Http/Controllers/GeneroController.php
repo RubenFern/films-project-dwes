@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Genero;
 use App\Models\Pelicula;
+use App\Models\PeliculaAlquilada;
 use Illuminate\Http\Request;
 
 class GeneroController extends Controller
@@ -70,11 +71,35 @@ class GeneroController extends Controller
     }
 
     public function destroy(Genero $genero)
-    {        
-        $genero->delete();
+    {   
+        // No se puede eliminar un género si un usuario tiene alquilada una película de ese género
+        $peliculas = Pelicula::where('id_genero', $genero->id)->get();
+        $borradoValido = true;
+        
+        // En el momento que exista una consulta con más de 0 significa que un usuario tiene una película alquilada de este género
+        foreach ($peliculas as $pelicula)
+        {
+            $peliculaAlquilada = PeliculaAlquilada::where('id_pelicula', $pelicula->id)->where('devuelta', 0)->count();
 
-        return redirect()
-                    ->route('admin.index')
-                    ->withSuccess('Se ha eliminado el género de ' . $genero->genero);
+            if ($peliculaAlquilada != 0)
+            {
+                $borradoValido = false;
+            }
+        }
+
+        if ($borradoValido)
+        {
+            $genero->delete();
+
+            return redirect()
+                        ->route('admin.index')
+                        ->withSuccess('Se ha eliminado el género de ' . $genero->genero);
+        } else
+        {
+            return redirect()
+                        ->route('admin.index')
+                        ->withErrors('No se puede eliminar porque existen películas alquiladas por usuarios de este género');
+        }
+        
     }
 }

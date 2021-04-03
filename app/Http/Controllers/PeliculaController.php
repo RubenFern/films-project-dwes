@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PeliculaRequest;
 use App\Models\Genero;
 use App\Models\Pelicula;
+use App\Models\PeliculaAlquilada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PeliculaController extends Controller
 {
@@ -24,7 +27,11 @@ class PeliculaController extends Controller
 
     public function show(Pelicula $pelicula)
     {
-        return view('peliculas.show', compact('pelicula'));
+        $alquilada = PeliculaAlquilada::where('id_user', Auth::user()->id)
+                                        ->where('id_pelicula', $pelicula->id)
+                                        ->where('devuelta', 0)->first();
+
+        return view('peliculas.show', compact('pelicula', 'alquilada'));
     }
 
     public function create()
@@ -37,13 +44,23 @@ class PeliculaController extends Controller
 
     public function store(PeliculaRequest $request)
     {
-        // El request me tiene solo los datos que han sido validados del formulario
-        Pelicula::create($request->validated()); 
+        return DB::transaction(function () use ($request) {
+            Pelicula::create([
+                'id_genero' => $request->id_genero,
+                'titulo' => $request->titulo,
+                'director' => $request->director,
+                'año' => $request->año,
+                'precio' => $request->precio,
+                'sinopsis' => $request->sinopsis,
+                'cantidad' => $request->cantidad,
+                'imagen' => $request->imagen->store('peliculas', 'images')
+            ]);
 
-        // Retorno la vista de todas las películas y un mensaje
-        return redirect()
-                    ->route('peliculas.index')
-                    ->withSuccess('Se ha añadido la película correctamente');
+            // Retorno la vista de todas las películas y un mensaje
+            return redirect()
+                        ->route('peliculas.index')
+                        ->withSuccess('Se ha añadido la película correctamente');
+        }, 3);
     }
 
     public function edit(Pelicula $pelicula)
@@ -54,9 +71,17 @@ class PeliculaController extends Controller
     }
 
     public function update(PeliculaRequest $request, Pelicula $pelicula)
-    {
-        // Actualizo los datos de la película en específico
-        $pelicula->update($request->validated());
+    {    
+        $pelicula->update([
+            'id_genero' => $request->id_genero,
+            'titulo' => $request->titulo,
+            'director' => $request->director,
+            'año' => $request->año,
+            'precio' => $request->precio,
+            'sinopsis' => $request->sinopsis,
+            'cantidad' => $request->cantidad,
+            'imagen' => $request->imagen->store('peliculas', 'images')
+        ]);
 
         return redirect()
                     ->route('peliculas.show', ['pelicula' => $pelicula->id])

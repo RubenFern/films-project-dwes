@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AlquiladaMailable;
 use App\Models\Pelicula;
 use App\Models\PeliculaAlquilada;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PeliculaAlquiladaController extends Controller
 {
@@ -58,9 +60,7 @@ class PeliculaAlquiladaController extends Controller
         } else
         {
             return view('peliculas-alquiladas.create', compact('PeliculaAlquilada'));
-        }
-
-        
+        }        
     }
 
     public function store($PeliculaAlquilada)
@@ -89,6 +89,10 @@ class PeliculaAlquiladaController extends Controller
                 'id_user' => $idUsuario,
                 'fecha_alquiler' => $fechaAlquiler
             ]);
+
+            // Mando un correo al usuario
+            $correo = new AlquiladaMailable;
+            Mail::to(auth()->user()->email)->send($correo);
 
             return redirect()
                     ->route('peliculas.show', ['pelicula' => $PeliculaAlquilada->id])

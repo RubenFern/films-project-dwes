@@ -30,7 +30,7 @@ class PeliculaAlquiladaController extends Controller
             return redirect()->back()->withErrors('Los administradores no pueden alquilar películas');
         } else
         {
-            $peliculasAlquiladas = PeliculaAlquilada::where('id_user', $usuario->id)->get();   
+            $peliculasAlquiladas = PeliculaAlquilada::where('id_user', $usuario->id)->where('devuelta', 0)->get();
 
             return view('peliculas-alquiladas.index', compact('peliculasAlquiladas', 'usuario'));
         }
@@ -43,11 +43,24 @@ class PeliculaAlquiladaController extends Controller
          * desde el formulario de confirmación de la vista create. Store se encarga de 
          * insertar la película alquilada en la base de datos
          */
+        $usuario = Auth::user()->id;
+        $numPeliculasAlquiladas = PeliculaAlquilada::where('id_user', $usuario)->where('devuelta', 0)->count();
 
         // Si no existe la película por el id manda un error 404
-        $PeliculaAlquilada = Pelicula::findOrFail($PeliculaAlquilada); 
+        $PeliculaAlquilada = Pelicula::findOrFail($PeliculaAlquilada);
 
-        return view('peliculas-alquiladas.create', compact('PeliculaAlquilada'));
+        if ($usuario == 1)
+        {
+            return redirect()->route('peliculas.show', ['pelicula' => $PeliculaAlquilada->id])->withErrors('Los administradores no pueden alquilar películas');
+        } else if ($numPeliculasAlquiladas >= 6)
+        {
+            return redirect()->route('peliculas.show', ['pelicula' => $PeliculaAlquilada->id])->withErrors('Has alcanzado el límite de alquiler de películas');
+        } else
+        {
+            return view('peliculas-alquiladas.create', compact('PeliculaAlquilada'));
+        }
+
+        
     }
 
     public function store($PeliculaAlquilada)
@@ -78,7 +91,7 @@ class PeliculaAlquiladaController extends Controller
             ]);
 
             return redirect()
-                    ->route('peliculas-alquiladas.create', ['pelicula' => $PeliculaAlquilada])
+                    ->route('peliculas.show', ['pelicula' => $PeliculaAlquilada->id])
                     ->withSuccess('Has alquilado con éxito la película');
         }
     }
@@ -92,6 +105,16 @@ class PeliculaAlquiladaController extends Controller
 
     public function update(PeliculaAlquilada $PeliculaAlquilada)
     {
+        $fechaDevolucion = Carbon::now();
+
         // Cambio el valor del booleano devuelto a true
+        $PeliculaAlquilada->update([
+            'devuelta' => 1,
+            'fecha_devolucion' => $fechaDevolucion
+        ]);
+
+        return redirect()
+                    ->route('peliculas-alquiladas.index')
+                    ->withSuccess('Has devuelto con éxito la película');
     }
 }

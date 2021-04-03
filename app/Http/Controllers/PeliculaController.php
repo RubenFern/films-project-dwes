@@ -107,8 +107,6 @@ class PeliculaController extends Controller
             return redirect()
                         ->route('admin.index')
                         ->withSuccess('Se ha eliminado la película: ' . $pelicula->titulo);
-        }
-
-        
+        }        
     }
 }

@@ -37,7 +37,7 @@ class HomeController extends Controller
             // Retorno 5 películas aleatorias
             $sugerenciaDePeliculas = Pelicula::inRandomOrder()->limit(5)->get();
             // Cuento el número de películas alquiladas que tiene el usuario
-            $numPeliculasAlquiladas = PeliculaAlquilada::where('id_user', $usuario->id)->count();
+            $numPeliculasAlquiladas = PeliculaAlquilada::where('id_user', $usuario->id)->where('devuelta', 0)->count();
 
             return view('home', compact('sugerenciaDePeliculas', 'numPeliculasAlquiladas'));
         }

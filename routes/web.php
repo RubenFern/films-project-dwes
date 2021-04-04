@@ -46,6 +46,7 @@ Route::get('generos/{genero}', [GeneroController::class, 'show'])->name('generos
 |--------------------------------------------------------------------------
 */
 Route::get('peliculas-alquiladas', [PeliculaAlquiladaController::class, 'index'])->name('peliculas-alquiladas.index');
+Route::get('peliculas-alquiladas/historial', [PeliculaAlquiladaController::class, 'historial'])->name('peliculas-alquiladas.historial');
 
 // Uso la url de películas para controlar el id de la película que quiero alquilar
 Route::get('peliculas/{pelicula}/alquilar', [PeliculaAlquiladaController::class, 'create'])->name('peliculas-alquiladas.create');

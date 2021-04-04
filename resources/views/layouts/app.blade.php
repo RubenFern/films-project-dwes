@@ -61,7 +61,9 @@
                                     <a href="{{ route('usuarios.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">Usuarios</a>
                                 
                                 @else
-                                    <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" href="{{ route('peliculas-alquiladas.index') }}">Ver películas alquiladas</a>
+                                    <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" href="{{ route('peliculas-alquiladas.index') }}">Mis Películas</a>
+
+                                    <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" href="{{ route('peliculas-alquiladas.historial') }}">Historial</a>
                                 @endif
                             @endauth
                                 

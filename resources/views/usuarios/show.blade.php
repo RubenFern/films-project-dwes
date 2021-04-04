@@ -19,9 +19,25 @@
                 <img class="rounded-l-xl w-32 lg:w-40" src="/images/{{ $peliculaAlquilada->pelicula->imagen }}" alt="{{ $peliculaAlquilada->pelicula->imagen }}">
                 <div class="flex flex-col justify-between box-border w-full">
                     <div>
-                        <h2 class="text-teal-500 text-xl p-4 pl-10">{{ $peliculaAlquilada->pelicula->titulo }}</h2>
-                        <h4 class="text-gray-600 pl-10 mb-1">Año: <span class="text-white">{{ $peliculaAlquilada->pelicula->año }}</span></h4>
-                        <h4 class="text-gray-600 pl-10">Género: <span class="text-white">{{ $peliculaAlquilada->pelicula->genero->genero }}</span></h4>
+                        <h2 class="text-teal-500 text-xl p-4 pl-6">{{ $peliculaAlquilada->pelicula->titulo }}</h2>
+                        <h4 class="text-gray-400 pl-6 mb-2">Año: <span class="text-white">{{ $peliculaAlquilada->pelicula->año }}</span></h4>
+                        <h4 class="text-gray-400 pl-6 mb-2">Género: <span class="text-white">{{ $peliculaAlquilada->pelicula->genero->genero }}</span></h4>
+
+                        @if ($peliculaAlquilada->devuelta)
+                            <h4 class="text-gray-400 pl-6 mb-1">Fecha de devolución:</h4>
+                            <p class="text-white pl-6">
+                                {{ \Carbon\Carbon::parse(strtotime($peliculaAlquilada->fecha_devolucion))->formatLocalized('%d de %B de %Y') }}
+                                a las
+                                {{ \Carbon\Carbon::parse(strtotime($peliculaAlquilada->fecha_devolucion))->formatLocalized('%R') }}
+                            </p>
+                        @else
+                            <h4 class="text-gray-400 pl-6 mb-1">Fecha de alquiler:</h4>
+                            <p class="text-white pl-6">
+                                {{ \Carbon\Carbon::parse(strtotime($peliculaAlquilada->fecha_alquiler))->formatLocalized('%d de %B de %Y') }}
+                                a las
+                                {{ \Carbon\Carbon::parse(strtotime($peliculaAlquilada->fecha_alquiler))->formatLocalized('%R') }}
+                            </p>
+                        @endif
                     </div>         
                 </div>
             </div>

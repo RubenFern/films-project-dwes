@@ -55,6 +55,17 @@
                             <a href="{{ route('peliculas.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">Películas</a>
                 
                             <a href="{{ route('generos.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">Géneros</a>
+
+                            @auth
+                                @if (Auth::user()->isAdmin())
+                                    <a href="{{ route('usuarios.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">Usuarios</a>
+                                
+                                @else
+                                    <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" href="{{ route('peliculas-alquiladas.index') }}">Ver películas alquiladas</a>
+                                @endif
+                            @endauth
+                                
+                            
                         </div>
                     </div>
                     </div>

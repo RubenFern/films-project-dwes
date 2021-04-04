@@ -15,9 +15,9 @@
         </div>
                       
         <div class="mt-10 admin-info">
-            <table>
+            <table class="rounded-xl m-5 w-full mx-auto bg-header text-gray-200">
                 @foreach ($generos as $genero)
-                    <tr>
+                    <tr class="border-b border-gray-300">
                         <td class="p-3">
                             <p class="text-center">{{ $genero->genero }}</p>
                         </td>
@@ -42,7 +42,7 @@
                     <div class="rounded-xl">
                         <a href="{{ route('peliculas.show', ['pelicula' => $pelicula->id]) }}"><img class="rounded-xl m-auto w-64" src="/images/{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}"></a>
 
-                        <h1 class="text-center mt-1 text-lg">{{ $pelicula->titulo }}</h1>
+                        <h1 class="text-center mt-2 text-xl">{{ $pelicula->titulo }}</h1>
 
                         <div class="flex justify-center mt-4">
                             <a class="py-2 px-4 mr-4 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75" 

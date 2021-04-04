@@ -25,7 +25,7 @@
                 <img class="rounded-l-xl w-32 lg:w-40" src="/images/{{ $peliculaAlquilada->pelicula->imagen }}" alt="{{ $peliculaAlquilada->pelicula->imagen }}">
                 <div class="flex flex-col justify-between box-border w-full">
                     <div>
-                        <h2 class="text-teal-100 text-xl p-4 pl-10">{{ $peliculaAlquilada->pelicula->titulo }}</h2>
+                        <h2 class="text-teal-500 text-xl p-4 pl-10">{{ $peliculaAlquilada->pelicula->titulo }}</h2>
                         <h4 class="text-gray-600 pl-10 mb-1">Año: <span class="text-white">{{ $peliculaAlquilada->pelicula->año }}</span></h4>
                         <h4 class="text-gray-600 pl-10">Género: <span class="text-white">{{ $peliculaAlquilada->pelicula->genero->genero }}</span></h4>
                     </div>         

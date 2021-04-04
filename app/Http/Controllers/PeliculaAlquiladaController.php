@@ -57,6 +57,9 @@ class PeliculaAlquiladaController extends Controller
         } else if ($numPeliculasAlquiladas >= 6)
         {
             return redirect()->route('peliculas.show', ['pelicula' => $PeliculaAlquilada->id])->withErrors('Has alcanzado el límite de alquiler de películas');
+        } else if ($PeliculaAlquilada->cantidad <= 0)
+        {
+            return redirect()->route('peliculas.show', ['pelicula' => $PeliculaAlquilada->id])->withErrors('Lo sentimos, no tenemos stock de esta película');
         } else
         {
             return view('peliculas-alquiladas.create', compact('PeliculaAlquilada'));
@@ -90,6 +93,15 @@ class PeliculaAlquiladaController extends Controller
                 'fecha_alquiler' => $fechaAlquiler
             ]);
 
+            // Dismiuyo la cantidad de la película
+            $peliculaCreada = PeliculaAlquilada::orderBy('id', 'DESC')->first();
+            $pelicula = Pelicula::where('id', $peliculaCreada->id_pelicula)->first();
+            $cantidad = $pelicula->cantidad;
+
+            Pelicula::where('id', $peliculaCreada->id_pelicula)->update([
+                "cantidad" => $cantidad - 1
+            ]);
+
             // Mando un correo al usuario
             $correo = new AlquiladaMailable;
             Mail::to(auth()->user()->email)->send($correo);
@@ -115,6 +127,14 @@ class PeliculaAlquiladaController extends Controller
         $PeliculaAlquilada->update([
             'devuelta' => 1,
             'fecha_devolucion' => $fechaDevolucion
+        ]);
+
+        // Aumento la cantidad de la película
+        $pelicula = Pelicula::where('id', $PeliculaAlquilada->id_pelicula)->first();
+        $cantidad = $pelicula->cantidad;
+
+        Pelicula::where('id', $PeliculaAlquilada->id_pelicula)->update([
+            "cantidad" => $cantidad + 1
         ]);
 
         return redirect()

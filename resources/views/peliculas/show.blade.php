@@ -16,26 +16,28 @@
                 </div>         
                 
                 <div class="pl-4 mb-7 m-auto">
-                    @if (Auth::user()->id == 1)
-                        <div class="flex justify-between">
-                            <a class="bg-teal-500 py-2 px-16 rounded-xl mr-2 hover:bg-teal-700" 
-                            href="{{ route('peliculas.edit', ['pelicula' => $pelicula->id]) }}">Editar</a>
-                            <form class="ml-2" method='POST' action="{{ route('peliculas.destroy', ['pelicula' => $pelicula->id])}}">
-                                @csrf
-                                @method('DELETE')
-            
-                                <input class="bg-teal-500 hover:bg-teal-700 py-2 px-16 rounded-xl cursor-pointer" 
-                                    type="submit" value="Eliminar">
-                            </form>
-                        </div>
-                    @else
-                        @if (!$alquilada)
-                            <a class="bg-teal-500 py-2 px-16 rounded-xl" href="{{ route('peliculas-alquiladas.create', ['pelicula' => $pelicula->id]) }}">Alquilar</a>
+                    @auth
+                        @if (Auth::user()->id == 1)
+                            <div class="flex justify-between">
+                                <a class="bg-teal-500 py-2 px-16 rounded-xl mr-2 hover:bg-teal-700" 
+                                href="{{ route('peliculas.edit', ['pelicula' => $pelicula->id]) }}">Editar</a>
+                                <form class="ml-2" method='POST' action="{{ route('peliculas.destroy', ['pelicula' => $pelicula->id])}}">
+                                    @csrf
+                                    @method('DELETE')
+                
+                                    <input class="bg-teal-500 hover:bg-teal-700 py-2 px-16 rounded-xl cursor-pointer" 
+                                        type="submit" value="Eliminar">
+                                </form>
+                            </div>
                         @else
-                            <a class="bg-teal-500 py-2 px-16 rounded-xl" href="{{ route('peliculas-alquiladas.edit', ['pelicula_alquilada' => $alquilada->id]) }}">Devolver</a>
+                            @if (!$alquilada)
+                                <a class="bg-teal-500 py-2 px-16 rounded-xl" href="{{ route('peliculas-alquiladas.create', ['pelicula' => $pelicula->id]) }}">Alquilar</a>
+                            @else
+                                <a class="bg-teal-500 py-2 px-16 rounded-xl" href="{{ route('peliculas-alquiladas.edit', ['pelicula_alquilada' => $alquilada->id]) }}">Devolver</a>
+                            @endif       
                         @endif
-                                                
-                    @endif
+                    @endauth
+                    
                 </div>
             </div>
         </div>

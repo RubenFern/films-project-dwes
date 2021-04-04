@@ -38,6 +38,15 @@ class PeliculaAlquiladaController extends Controller
         }
     }
 
+    // Muestro las películas que ya ha devuelto el usuario
+    public function historial()
+    {
+        $usuario = Auth::user();
+        $historial = PeliculaAlquilada::where('id_user', $usuario->id)->where('devuelta', 1)->get();
+
+        return view('peliculas-alquiladas.historial', compact('historial'));
+    }
+
     public function create($PeliculaAlquilada)
     {
         /**

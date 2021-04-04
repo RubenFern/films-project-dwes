@@ -27,11 +27,18 @@ class PeliculaController extends Controller
 
     public function show(Pelicula $pelicula)
     {
-        $alquilada = PeliculaAlquilada::where('id_user', Auth::user()->id)
-                                        ->where('id_pelicula', $pelicula->id)
-                                        ->where('devuelta', 0)->first();
+        if (Auth::user())
+        {
+            $alquilada = PeliculaAlquilada::where('id_user', Auth::user()->id)
+                                            ->where('id_pelicula', $pelicula->id)
+                                            ->where('devuelta', 0)->first();
 
-        return view('peliculas.show', compact('pelicula', 'alquilada'));
+            return view('peliculas.show', compact('pelicula', 'alquilada'));
+        } else
+        {
+            return view('peliculas.show', compact('pelicula'));
+        }
+        
     }
 
     public function create()

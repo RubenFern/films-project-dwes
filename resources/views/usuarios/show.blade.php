@@ -11,7 +11,7 @@
         </div>
         
     @else        
-        <h1 class="my-8 text-teal-300 text-3xl font-semibold">Películas alquiladas del usuario {{ $usuario->name }}</h1>
+        <h1 class="my-8 text-teal-500 text-4xl font-light">Películas alquiladas del usuario <span class="text-white">{{ $usuario->name }}</span></h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         @foreach ($peliculasAlquiladas as $peliculaAlquilada)

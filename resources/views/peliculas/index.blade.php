@@ -4,7 +4,7 @@
 
 
     <section class="max-w-sm lg:max-w-5xl m-auto mb-6">
-        <h1 class="my-8 text-teal-500 text-3xl font-semibold">Nuestro catálogo</h1>
+        <h1 class="my-8 text-teal-500 font-light text-4xl text-center">Nuestro catálogo</h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             @foreach ($peliculas as $pelicula)

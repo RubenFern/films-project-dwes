@@ -17,7 +17,7 @@
         </div>
         
     @else        
-        <h1 class="my-8 text-teal-300 text-3xl font-semibold">Tus películas alquiladas</h1>
+        <h1 class="my-8 text-teal-500 font-light text-4xl text-center">Tus películas alquiladas</h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         @foreach ($peliculasAlquiladas as $peliculaAlquilada)

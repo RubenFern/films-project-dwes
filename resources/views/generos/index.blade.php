@@ -3,7 +3,7 @@
 @section('content')
 
     <section class="max-w-sm md:max-w-lg lg:max-w-3xl xl:max-w-5xl m-auto mb-6">
-        <h1 class="my-10 text-teal-500 ml-4 md:ml-0 text-2xl md:text-3xl font-semibold">Elige el género que quieras</h1>
+        <h1 class="my-8 text-teal-500 font-light text-4xl text-center">Elige el género que quieras</h1>
 
         <div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 xl:gap-10">
             @foreach ($generos as $genero)

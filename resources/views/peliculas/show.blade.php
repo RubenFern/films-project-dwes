@@ -7,10 +7,12 @@
             <img class="rounded-l-xl w-80" src="/images/{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
             <div class="flex flex-col justify-between box-border w-full">
                 <div>
-                    <h2 class="text-teal-500 text-xl lg:text-2xl p-4 pl-10">{{ $pelicula->titulo }}</h2>
-                    <h4 class="text-gray-600 pl-10">Año: <span class="text-white">{{ $pelicula->año }}</span></h4>
-                    <h4 class="text-gray-600 pl-10">Género: <span class="text-white">{{ $pelicula->genero->genero }}</span></h4>
-                    <p class="px-10 pt-4 text-justify leading-5">
+                    <h2 class="text-teal-500 text-xl lg:text-3xl p-4 pl-10">{{ $pelicula->titulo }}</h2>
+                    <h4 class="text-gray-400 text-lg font-semibold pl-10">Director: <span class="text-white font-light">{{ $pelicula->director }}</span></h4>
+                    <h4 class="text-gray-400 text-lg font-semibold pl-10 mt-2">Año: <span class="text-white font-light">{{ $pelicula->año }}</span></h4>
+                    <h4 class="text-gray-400 text-lg font-semibold pl-10 mt-2">Género: <span class="text-white font-light">{{ $pelicula->genero->genero }}</span></h4>
+                    <h4 class="text-gray-400 text-lg font-semibold pl-10 mt-2">Precio: <span class="text-white font-light">{{ $pelicula->precio }}€</span></h4>
+                    <p class="px-10 text-gray-100 pt-4 text-justify text-lg font-light leading-6">
                         {{ $pelicula->sinopsis }}
                     </p>
                 </div>         

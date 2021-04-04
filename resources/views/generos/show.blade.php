@@ -3,7 +3,7 @@
 @section('content')
 
     <section class="max-w-sm lg:max-w-5xl m-auto mb-6">
-        <h1 class="my-8 text-teal-300 text-3xl font-semibold">Películas del género de {{ $genero->genero }}</h1>
+        <h1 class="my-8 text-teal-500 font-light text-4xl text-center">Películas del género de {{ $genero->genero }}</h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             @forelse ($peliculasFiltradas as $pelicula)
@@ -11,9 +11,9 @@
                     <img class="rounded-l-xl w-32 lg:w-40" src="/images/{{ $pelicula->imagen }}" alt="{{ $pelicula->imagen }}">
                     <div class="flex flex-col justify-between box-border w-full">
                         <div>
-                            <h2 class="text-teal-500 text-xl p-4 pl-10">{{ $pelicula->titulo }}</h2>
+                            <h2 class="text-teal-500 text-2xl p-4 pl-10">{{ $pelicula->titulo }}</h2>
                             <h4 class="text-gray-600 pl-10">Año: <span class="text-white">{{ $pelicula->año }}</span></h4>
-                            <h4 class="text-gray-600 pl-10">Género: <span class="text-white">{{ $pelicula->genero->genero }}</span></h4>
+                            <h4 class="text-gray-600 pl-10 mt-2">Género: <span class="text-white">{{ $pelicula->genero->genero }}</span></h4>
                         </div>         
                         
                         <div class="pl-4 mb-7 m-auto">

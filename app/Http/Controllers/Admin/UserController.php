@@ -8,6 +8,7 @@ use App\Models\PeliculaAlquilada;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -27,8 +28,8 @@ class UserController extends Controller
                         ->withErrors('Los administradores no pueden alquilar películas');
         } else
         {
-            $peliculasAlquiladas = PeliculaAlquilada::where('id_user', $user)->get();
-            $usuario = User::find($user);
+            $usuario = User::findOrFail($user);
+            $peliculasAlquiladas = PeliculaAlquilada::where('id_user', $usuario->id)->get();
 
             return view('usuarios.show', compact('peliculasAlquiladas', 'usuario'));
         }
@@ -52,18 +53,30 @@ class UserController extends Controller
         ]);
 
         return redirect()
-                    ->route('usuarios.index', ['usuario' => $user])
+                    ->route('usuarios.index', ['usuario' => $usuario->id])
                     ->withSuccess('Se han actualizado los datos del usuario');
     }
 
     public function destroy($user)
     {
+        
         $usuario = User::findOrFail($user);
+        
+        // Compruebo que el usuario que se quiere borrar no sea el mismo que está logueado
+        if ($usuario->id == Auth::user()->id)
+        {
+            return redirect()
+                    ->route('usuarios.index', ['usuario' => $usuario->id])
+                    ->withErrors('No te puedes borrar a ti mismo');
+        } else
+        {
+            $usuario->delete();
 
-        $usuario->delete();
+            return redirect()
+                        ->route('usuarios.index', ['usuario' => $usuario->id])
+                        ->withSuccess('Usuario borrado con exito');
+        }
 
-        return redirect()
-                    ->route('usuarios.index', ['usuario' => $user])
-                    ->withSuccess('Usuario borrado con exito');
+        
     }
 }

@@ -59,8 +59,8 @@ class UserController extends Controller
 
     public function destroy($user)
     {
-        
         $usuario = User::findOrFail($user);
+        $tienePeliculas = PeliculaAlquilada::where('id_user', $usuario->id)->where('devuelta', 0)->count();
         
         // Compruebo que el usuario que se quiere borrar no sea el mismo que está logueado
         if ($usuario->id == Auth::user()->id)
@@ -68,6 +68,11 @@ class UserController extends Controller
             return redirect()
                     ->route('usuarios.index', ['usuario' => $usuario->id])
                     ->withErrors('No te puedes borrar a ti mismo');
+        } else if ($tienePeliculas != 0)
+        {
+            return redirect()
+                    ->route('usuarios.index', ['usuario' => $usuario->id])
+                    ->withErrors('No puedes borrar un usuario con películas alquiladas');
         } else
         {
             $usuario->delete();

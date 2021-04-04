@@ -11,7 +11,7 @@ class MainController extends Controller
     {
         if (Auth::user())
         {
-            // En el controlador de home compruebo si es admin o el usuario para mostarles su respectivo home
+            // En el controlador de home compruebo si es admin o es usuario para mostarles su respectivo home
             return redirect()->route('home');
         } else
         {
